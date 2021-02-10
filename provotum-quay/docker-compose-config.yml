@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  quay_config:
+    image: quay.io/projectquay/quay:latest
+
+networks:
+  default:
+    external:
+      name: provotum-quay_provotum-quay

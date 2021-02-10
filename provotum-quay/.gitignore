@@ -1,0 +1,4 @@
+postgres/*
+storage/*
+config/*
+.env
