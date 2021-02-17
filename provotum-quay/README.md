@@ -19,14 +19,18 @@ In this folder all necessary installation steps are included to deploy a Project
      - Redis
          - Host: `redis`
          - Password: `REDIS_PASSWORD`
-- Download configfile extract it and put it into the `./config` folder
+- Download configfile, extract it, create a `config` folder in the root repository directory and put the config files into the `config` folder
 - Stop the quay config container
+- Set up the storage directory to store the image blobs:
+    - Create a storage folder in the root repository directory `mkdir storage`
+    - Set the right permissions: `setfacl -m u:1001:-wx storage`
 - Start quay with `docker-compose -f docker-compose-quay.yml up -d`
-- Go to `ip:8081`, your quay repository is sucessfully installed.
+- Go to `ip:8081`, your quay repository is successfully installed.
 
+
+## How to use quay
 
 ## Todos
 
 Define Hostname for quay server
 Create save standard quay configuration file.
-Crate docker image for postgres with enabled extension: docker exec -it postgresql /bin/bash -c 'echo "CREATE EXTENSION IF NOT EXISTS pg_trgm" | psql -d quay -U user'
