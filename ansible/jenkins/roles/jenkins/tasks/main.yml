@@ -1,0 +1,17 @@
+---
+
+- name: Install packages and dependencies
+  apt: name={{ item }} state=latest update_cache=yes
+  loop: ['openjdk-8-jdk', 'libfontconfig', 'libffi-dev', 'libncurses5-dev']
+
+- name: Add the Jenkins public GPG key to the apt repo
+  apt_key: url={{ jenkins_repo_key_url }}
+           state=present
+
+- name: Add Jenkins apt repo to the trusted sources list
+  apt_repository: repo='deb {{ jenkins_repo_url }}'
+                  update_cache=yes
+                  state=present
+
+- name: Install Jenkins server
+  apt: name=jenkins state=present
