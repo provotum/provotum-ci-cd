@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  quay:
+    image: quay.io/projectquay/quay:latest
+    privileged: true
+    ports:
+      - 8081:8080
+    volumes:
+      - ./config:/conf/stack:Z
+      - ./storage:/datastorage:Z
+
+networks:
+  default:
+    external:
+      name: files_provotum-quay
+

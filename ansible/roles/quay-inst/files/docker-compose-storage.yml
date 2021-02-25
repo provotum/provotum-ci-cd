@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  postgres:
+    image: "postgres:10.12"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=quay
+    volumes:
+      - "./postgres:/var/lib/postgresql/data"
+    networks:
+        - "provotum-quay"
+  redis:
+    image: "redis:5.0.7"
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    networks:
+      - "provotum-quay"
+
+networks:
+  provotum-quay:
+
