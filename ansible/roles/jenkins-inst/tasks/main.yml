@@ -15,3 +15,14 @@
 
 - name: Install Jenkins server
   apt: name=jenkins state=present
+
+- name: Add Jenkins user to docker group
+  user:
+    name: jenkins
+    groups: docker
+    append: yes
+
+- name: Restart jenkins
+  service:
+    name: jenkins
+    state: restarted

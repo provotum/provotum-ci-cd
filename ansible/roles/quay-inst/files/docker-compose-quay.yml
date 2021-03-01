@@ -6,11 +6,10 @@ services:
     ports:
       - 8081:8080
     volumes:
-      - ./config:/conf/stack:Z
-      - ./storage:/datastorage:Z
+      - ./quay/config:/conf/stack:Z
+      - ./quay/storage:/datastorage:Z
 
 networks:
   default:
     external:
       name: files_provotum-quay
-

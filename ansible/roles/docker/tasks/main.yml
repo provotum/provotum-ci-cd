@@ -23,3 +23,23 @@
     - name: Install Docker Module for Python
       pip:
         name: docker
+    - name: Enable docker systemd service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+    - name: Prepare default daemon configuration
+      copy:
+        src: files/daemon.json
+        dest: /etc/docker/daemon.json
+    - name: Add users to docker group
+      user:
+        name: "{{ item }}"
+        groups: docker
+        append: yes
+      with_items: "{{ docker_group_members }}"
+      when: docker_group_members is defined
+    - name: Restart docker
+      service:
+        name: docker
+        state: restarted
