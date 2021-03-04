@@ -1,0 +1,6 @@
+---
+
+application_name: clair
+
+clair_db_user: user
+clair_db_password: password

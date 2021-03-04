@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  clair:
+    container_name: clair
+    image: quay.io/projectquay/clair:4.0.2
+    environment:
+      CLAIR_CONF: "/clair/config.yml"
+      CLAIR_MODE: "combo"
+    volumes:
+      - ./clair/config:/clair
+
+networks:
+  default:
+    external:
+      name: files_provotum-quay

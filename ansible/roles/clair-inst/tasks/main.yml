@@ -1,0 +1,39 @@
+- name: Copy docker-compose files
+  copy:
+    src: ../files
+    dest: /var/clair
+
+- name: Creating .env file
+  copy:
+    dest: "/var/clair/files/.env"
+    content: |
+      CLAIR_DB_USER={{ clair_db_user }}
+      CLAIR_DB_PASSWORD={{ clair_db_password }}
+
+- name: Run clair DB
+  become: true
+  shell:
+    chdir: /var/clair/files
+    cmd: "docker-compose -f docker-compose-storage.yml up -d"
+
+- name: Wait for running clair db
+  become: true
+  shell:
+    chdir: /var/clair/files
+    cmd: "docker exec -it clair-db bash -c 'while ! pg_isready; do sleep 2; done'"
+
+- name: Enable uuid-ossp for clair DB
+  become: true
+  shell: docker exec -it clair-db /bin/bash -c 'echo "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"" | psql -d clair -U {{clair_db_user}}'
+
+- name: Insert clair config
+  replace:
+    path: /var/clair/files/clair/config/config.yml
+    regexp: 'connstring:'
+    replace: 'connstring: host=clair-db port=5432 dbname=clair user={{ clair_db_user }} password={{ clair_db_password }} sslmode=disable'
+
+- name: Run clair
+  become: true
+  shell:
+    chdir: /var/clair/files
+    cmd: "docker-compose -f docker-compose-clair.yml up -d"

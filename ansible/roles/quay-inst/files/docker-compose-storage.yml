@@ -1,6 +1,7 @@
 version: "3.9"
 services:
-  postgres:
+  quay-db:
+    container_name: quay-db
     image: "postgres:10.12"
     environment:
       - POSTGRES_USER=${QUAY_DB_USER}
@@ -11,6 +12,7 @@ services:
     networks:
         - "provotum-quay"
   redis:
+    container_name: redis
     image: "redis:5.0.7"
     command: redis-server --requirepass ${REDIS_PASSWORD}
     networks:

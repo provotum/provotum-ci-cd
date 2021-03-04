@@ -10,3 +10,4 @@
     - docker
     - docker-compose
     - quay-inst
+    - clair-inst

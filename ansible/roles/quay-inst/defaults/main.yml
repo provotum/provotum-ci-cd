@@ -6,8 +6,6 @@ quay_db_user: user
 quay_db_password: password
 quay_redis_password: password
 
-clair_db_user: user
-clair_db_password: password
 
 contact_info: http://provotum.ch/
 enterprise_logo_url: http://provotum.ch/pv-logo-light-diamond.svg

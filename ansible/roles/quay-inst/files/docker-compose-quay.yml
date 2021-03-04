@@ -1,10 +1,11 @@
 version: "3.9"
 services:
   quay:
+    container_name: quay
     image: quay.io/projectquay/quay:latest
     privileged: true
     ports:
-      - 8081:8080
+      - 8080:8080
     volumes:
       - ./quay/config:/conf/stack:Z
       - ./quay/storage:/datastorage:Z

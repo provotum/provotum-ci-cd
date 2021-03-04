@@ -13,8 +13,6 @@
       QUAY_DB_USER={{ quay_db_user }}
       QUAY_DB_PASSWORD={{ quay_db_password }}
       REDIS_PASSWORD={{ quay_redis_password }}
-      CLAIR_DB_USER={{ clair_db_user }}
-      CLAIR_DB_PASSWORD={{ clair_db_password }}
 
 - name: Run DB and Redis
   become: true
@@ -22,9 +20,15 @@
     chdir: /var/quay/files
     cmd: "docker-compose -f docker-compose-storage.yml up -d"
 
+- name: Wait for running db
+  become: true
+  shell:
+    chdir: /var/quay/files
+    cmd: "docker exec -it quay-db bash -c 'while ! pg_isready; do sleep 2; done'"
+
 - name: Enable pg_trgm for DB
   become: true
-  shell: docker exec -it files_postgres_1 /bin/bash -c 'echo "CREATE EXTENSION IF NOT EXISTS pg_trgm" | psql -d quay -U {{ quay_db_user }}'
+  shell: docker exec -it quay-db /bin/bash -c 'echo "CREATE EXTENSION IF NOT EXISTS pg_trgm" | psql -d quay -U {{ quay_db_user }}'
 
 - name: Insert quay config
   blockinfile:
@@ -34,20 +38,15 @@
       BUILDLOGS_REDIS.password: {{ quay_redis_password }}
       BUILDLOGS_REDIS.port: 6379
       CONTACT_INFO: {{ contact_info }}
-      DB_URI: postgresql://{{ quay_db_user }}:{{ quay_db_password }}@postgres/quay
+      DB_URI: postgresql://{{ quay_db_user }}:{{ quay_db_password }}@quay-db/quay
       ENTERPRISE_LOGO_URL: {{ enterprise_logo_url }}
       REGISTRY_TITLE: {{ registry_title }}
       REGISTRY_TITLE_SHORT: {{ registry_title }}
-      SERVER_HOSTNAME: 192.168.201.11:8081
+      SERVER_HOSTNAME: 192.168.141.121:8080
       USER_EVENTS_REDIS.host: redis
       USER_EVENTS_REDIS.password: {{ quay_redis_password }}
       USER_EVENTS_REDIS.port: 6379
 
-- name: Insert clair config
-  blockinfile:
-    path: /var/quay/files/clair/config/config.yml
-    block: |
-      clair.database.options.source: postgresql://{{ clair_db_user }}:{{ clair_db_password }}@clair_postgres:5432/clair?sslmode=disable
 
 - name: Create directory for images
   file:
@@ -64,9 +63,3 @@
   shell:
     chdir: /var/quay/files
     cmd: "docker-compose -f docker-compose-quay.yml up -d"
-
-- name: Run clair
-  become: true
-  shell:
-    chdir: /var/quay/files
-    cmd: "docker-compose -f docker-compose-clair.yml up -d"
