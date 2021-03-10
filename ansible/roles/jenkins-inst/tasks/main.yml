@@ -26,3 +26,9 @@
   service:
     name: jenkins
     state: restarted
+
+- name: print to inital admin password
+  command: cat /var/lib/jenkins/secrets/initialAdminPassword
+  register: initialAdminPassword
+
+- debug: msg="Initial Admin Password for Jenkins {{ initialAdminPassword.stdout }}"

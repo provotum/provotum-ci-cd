@@ -1,13 +1,11 @@
 ---
 
 - name: Set up a Jenkins CI server
-  hosts: jenkins
+  hosts: all
   become: yes
   vars:
     - update_apt_cache: yes
-  
+
   roles:
     - docker
     - jenkins-inst
-
-
