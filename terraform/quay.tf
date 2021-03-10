@@ -26,7 +26,7 @@ resource "digitalocean_droplet" "quay" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i '${var.subdomain}.${data.digitalocean_domain.default.name},' --private-key ${var.pvt_key} ../ansible/quay.yml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i '${self.ipv4_address},' --private-key ${var.pvt_key} --extra-vars 'hostname=${var.subdomain}.${data.digitalocean_domain.default.name}' ../ansible/quay.yml"
   }
 }
 
