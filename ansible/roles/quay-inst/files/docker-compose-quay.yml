@@ -4,11 +4,13 @@ services:
     container_name: quay
     image: quay.io/projectquay/quay:latest
     privileged: true
-    ports:
-      - 8080:8080
     volumes:
       - ./quay/config:/conf/stack:Z
       - ./quay/storage:/datastorage:Z
+    environment:
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
+      - VIRTUAL_PORT=8080
 
 networks:
   default:

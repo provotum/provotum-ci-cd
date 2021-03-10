@@ -17,3 +17,7 @@ provider "digitalocean" {
 data "digitalocean_ssh_key" "terraform" {
   name = "terraform"
 }
+
+data "digitalocean_domain" "default" {
+  name = "provotum.io"
+}

@@ -1,0 +1,35 @@
+version: '3'
+services:
+  nginx:
+    container_name: nginx-proxy
+    image: "jwilder/nginx-proxy:0.8.0"
+    ports:
+    - "80:80"
+    - "443:443"
+    labels:
+    - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
+    volumes:
+    - "/var/run/docker.sock:/tmp/docker.sock:ro"
+    - "/var/proxy/files/conf:/etc/nginx/vhost.d"
+    - "/var/proxy/files/data:/usr/share/nginx/html"
+    - "/var/proxy/files/certs:/etc/nginx/certs"
+    restart: always
+
+  letsencrypt:
+    container_name: nginx-proxy-letsencrypt
+    image: "jrcs/letsencrypt-nginx-proxy-companion:2.0.2"
+    volumes:
+    - "/var/proxy/files/certs:/etc/nginx/certs"
+    - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    - "/var/proxy/files/conf:/etc/nginx/vhost.d"
+    - "/var/proxy/files/data:/usr/share/nginx/html"
+    environment:
+    - DEFAULT_MAIL=${DEFAULT_MAIL}
+    depends_on:
+    - nginx
+    restart: always
+
+networks:
+  default:
+    external:
+      name: ${NETWORK}

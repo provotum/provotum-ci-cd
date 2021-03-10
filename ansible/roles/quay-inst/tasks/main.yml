@@ -13,6 +13,8 @@
       QUAY_DB_USER={{ quay_db_user }}
       QUAY_DB_PASSWORD={{ quay_db_password }}
       REDIS_PASSWORD={{ quay_redis_password }}
+      VIRTUAL_HOST={{ inventory_hostname }}
+      LETSENCRYPT_HOST={{ inventory_hostname }}
 
 - name: Run DB and Redis
   become: true
@@ -42,7 +44,7 @@
       ENTERPRISE_LOGO_URL: {{ enterprise_logo_url }}
       REGISTRY_TITLE: {{ registry_title }}
       REGISTRY_TITLE_SHORT: {{ registry_title }}
-      SERVER_HOSTNAME: 192.168.141.121:8080
+      SERVER_HOSTNAME: {{ inventory_hostname }}
       USER_EVENTS_REDIS.host: redis
       USER_EVENTS_REDIS.password: {{ quay_redis_password }}
       USER_EVENTS_REDIS.port: 6379

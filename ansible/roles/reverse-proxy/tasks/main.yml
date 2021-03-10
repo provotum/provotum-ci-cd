@@ -1,0 +1,18 @@
+- name: Copy docker-compose files
+  copy:
+    src: ../files
+    dest: /var/proxy
+
+- name: Creating .env file
+  copy:
+    dest: "/var/proxy/files/.env"
+    content: |
+      NETWORK={{ network }}
+      DEFAULT_MAIL={{ default_mail }}
+
+
+- name: Run proxy
+  become: true
+  shell:
+    chdir: /var/proxy/files
+    cmd: "docker-compose up -d"

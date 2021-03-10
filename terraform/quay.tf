@@ -1,9 +1,14 @@
-resource "digitalocean_droplet" "jenkins" {
+variable "subdomain" {
+  type = string
+  default = "quay"
+}
+
+resource "digitalocean_droplet" "quay" {
   count  = 1
   image  = "ubuntu-20-04-x64"
-  name   = "jenkins-${count.index}"
+  name   = "quay-${count.index}"
   region = "fra1"
-  size   = "s-1vcpu-1gb"
+  size   = "s-2vcpu-4gb"
 
   ssh_keys = [
       data.digitalocean_ssh_key.terraform.id
@@ -21,13 +26,13 @@ resource "digitalocean_droplet" "jenkins" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i '${self.ipv4_address},' --private-key ${var.pvt_key} ../ansible/jenkins.yml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i '${var.subdomain}.${data.digitalocean_domain.default.name},' --private-key ${var.pvt_key} ../ansible/quay.yml"
   }
 }
 
-resource "digitalocean_record" "jenkins" {
+resource "digitalocean_record" "quay" {
   domain = data.digitalocean_domain.default.name
   type   = "A"
-  name   = "jenkins"
-  value  = element(digitalocean_droplet.jenkins,0).ipv4_address
+  name   = var.subdomain
+  value  = element(digitalocean_droplet.quay,0).ipv4_address
 }
