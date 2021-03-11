@@ -8,7 +8,7 @@ resource "digitalocean_droplet" "quay" {
   image  = "ubuntu-20-04-x64"
   name   = "quay-${count.index}"
   region = "fra1"
-  size   = "s-2vcpu-4gb"
+  size   = "s-4vcpu-8gb"
 
   ssh_keys = [
       data.digitalocean_ssh_key.terraform.id

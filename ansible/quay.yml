@@ -10,6 +10,7 @@
     - docker
     - docker-compose
     - quay-inst
+    - clair-inst
     - role: reverse-proxy
       vars:
         network: files_provotum-quay

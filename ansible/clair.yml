@@ -1,7 +1,7 @@
 ---
 
 - name: Set up a Clair Image scanner
-  hosts: clair
+  hosts: all
   become: yes
   vars:
     - update_apt_cache: yes
@@ -9,4 +9,3 @@
   roles:
     - docker
     - docker-compose
-    - clair-inst
