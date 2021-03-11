@@ -1,34 +1,30 @@
 ---
 
-- name: Install packages and dependencies
-  apt: name={{ item }} state=latest update_cache=yes
-  loop: ['openjdk-8-jdk', 'libfontconfig', 'libffi-dev', 'libncurses5-dev']
+- name: Copy docker-compose files
+  copy:
+    src: ../files
+    dest: /var/jenkins
 
-- name: Add the Jenkins public GPG key to the apt repo
-  apt_key: url={{ jenkins_repo_key_url }}
-           state=present
+- name: Creating .env file
+  copy:
+    dest: "/var/jenkins/files/.env"
+    content: |
+      VIRTUAL_HOST={{ hostname }}
+      LETSENCRYPT_HOST={{ hostname }}
 
-- name: Add Jenkins apt repo to the trusted sources list
-  apt_repository: repo='deb {{ jenkins_repo_url }}'
-                  update_cache=yes
-                  state=present
+- name: Run jenkins
+  become: true
+  shell:
+    chdir: /var/jenkins/files
+    cmd: "docker-compose up -d"
 
-- name: Install Jenkins server
-  apt: name=jenkins state=present
-
-- name: Add Jenkins user to docker group
-  user:
-    name: jenkins
-    groups: docker
-    append: yes
-
-- name: Restart jenkins
-  service:
-    name: jenkins
-    state: restarted
+- name: Wait for jenkins admin file exists
+  become: true
+  shell:
+    cmd: "docker exec jenkins bash -c 'while ! test -f /var/jenkins_home/secrets/initialAdminPassword; do sleep 2; done'"
 
 - name: print to inital admin password
-  command: cat /var/lib/jenkins/secrets/initialAdminPassword
+  command: docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
   register: initialAdminPassword
 
 - debug: msg="Initial Admin Password for Jenkins {{ initialAdminPassword.stdout }}"

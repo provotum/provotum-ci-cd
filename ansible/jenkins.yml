@@ -8,4 +8,8 @@
 
   roles:
     - docker
+    - docker-compose
     - jenkins-inst
+    - role: reverse-proxy
+      vars:
+        network: files_provotum-jenkins
