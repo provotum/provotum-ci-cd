@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:4.2-bionic
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data
+    networks:
+      - "provotum-quay"
+    restart: always
+  identity:
+    image: ${IDENTITY_PROVIDER_IMAGE}
+    environment:
+      - VOTING_AUTHORITY_URL=http://va:4000
+      - VIRTUAL_HOST=${IDENTITY_PROVIDER_URL}
+      - LETSENCRYPT_HOST=${IDENTITY_PROVIDER_URL}
+      - VIRTUAL_PORT=4000
+    networks:
+      - "provotum-quay"
+    restart: always
+  randomizer:
+    image: ${RANDOMIZER_IMAGE}
+    environment:
+      - VIRTUAL_HOST=${RANDOMIZER_URL}
+      - LETSENCRYPT_HOST=${RANDOMIZER_URL}
+      - VIRTUAL_PORT=4000
+    networks:
+      - "provotum-quay"
+    restart: always
+  va:
+    image: ${VOTING_AUTHORITY_IMAGE}
+    environment:
+      - KEY=//Voting-Authority
+      - NAME=voting-authority
+      - DEBUG=binary,client
+      - MONGODB_URI=mongodb://mongodb:27017
+      - MONGODB_NAME=voting-authority
+      - VIRTUAL_HOST=${VOTING_AUTHORITY_URL}
+      - LETSENCRYPT_HOST=${VOTING_AUTHORITY_URL}
+      - VIRTUAL_PORT=4000
+    depends_on:
+      - mongodb
+    networks:
+      - "provotum-quay"
+    restart: always
+  frontend:
+    image: ${FRONTEND_IMAGE}
+    environment:
+      - VIRTUAL_HOST=${FRONTEND_URL}
+      - LETSENCRYPT_HOST=${FRONTEND_URL}
+      - VIRTUAL_PORT=80
+    networks:
+      - "provotum-quay"
+    restart: always
+
+networks:
+  provotum-server:

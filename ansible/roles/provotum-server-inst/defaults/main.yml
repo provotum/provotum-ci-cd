@@ -1,0 +1,15 @@
+---
+
+application_name: provotum-server
+
+identity_provider_url: identity.server.provotum.io
+identity_provider_image: quay.provotum.io/provotum/identity-provider
+
+randomizer_url: randomizer.server.provotum.io
+randomizer_image: quay.provotum.io/provotum/randomizer
+
+voting_authority_url: voting-authority.server.provotum.io
+voting_authority_image: quay.provotum.io/provotum/voting-authority
+
+frontend_url: gui.server.provotum.io
+frontend_image: quay.provotum.io/provotum/voter

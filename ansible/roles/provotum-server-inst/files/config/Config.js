@@ -1,0 +1,4 @@
+window.env = {
+    idpAPIUrl: ,
+    randomizerAPIUrl: ,
+};

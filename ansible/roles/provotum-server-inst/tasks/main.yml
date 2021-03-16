@@ -1,0 +1,31 @@
+- name: Copy docker-compose file
+  copy:
+    src: ../files
+    dest: /var/provotum
+
+- name: Creating .env file
+  copy:
+    dest: "/var/quay/files/.env"
+    content: |
+      IDENTITY_PROVIDER_URL={{identity_provider_url}}
+      IDENTITY_PROVIDER_IMAGE={{identity_provider_image}}
+      RANDOMIZER_URL={{randomizer_url}}
+      RANDOMIZER_IMAGE={{randomizer_image}}
+      VOTING_AUTHORITY_URL={{voting_authority_url}}
+      VOTING_AUTHORITY_IMAGE={{voting_authority_image}}
+      FRONTEND_URL={{frontend_url}}
+      FRONTEND_IMAGE={{frontend_image}}
+
+- name: Insert GUI config
+  replace:
+    path: /var/provotum/files/config/Config.js
+    regexp: 'idpAPIUrl:'
+    replace: 'idpAPIUrl: "https://{{identity_provider_url}}"'
+    regexp: 'randomizerAPIUrl:'
+    replace: 'randomizerAPIUrl: "https://{{randomizer_url}}"'
+
+- name: Run Server
+  become: true
+  shell:
+    chdir: /var/provotum/files
+    cmd: "docker-compose up -d"
