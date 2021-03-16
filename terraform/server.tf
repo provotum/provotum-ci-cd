@@ -3,10 +3,10 @@ variable "subdomain_server" {
   default = "server"
 }
 
-resource "digitalocean_droplet" "quay" {
+resource "digitalocean_droplet" "server" {
   count  = 1
   image  = "ubuntu-20-04-x64"
-  name   = "quay-${count.index}"
+  name   = "server-${count.index}"
   region = "fra1"
   size   = "s-2vcpu-4gb"
 
@@ -34,12 +34,12 @@ resource "digitalocean_record" "server" {
   domain = data.digitalocean_domain.default.name
   type   = "A"
   name   = var.subdomain_server
-  value  = element(digitalocean_droplet.quay,0).ipv4_address
+  value  = element(digitalocean_droplet.server,0).ipv4_address
 }
 
-resource "digitalocean_record" "server" {
+resource "digitalocean_record" "server_sub" {
   domain = data.digitalocean_domain.default.name
   type   = "A"
   name   = "*.${var.subdomain_server}"
-  value  = element(digitalocean_droplet.quay,0).ipv4_address
+  value  = element(digitalocean_droplet.server,0).ipv4_address
 }

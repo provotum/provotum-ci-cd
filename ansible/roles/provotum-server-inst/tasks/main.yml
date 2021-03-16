@@ -5,7 +5,7 @@
 
 - name: Creating .env file
   copy:
-    dest: "/var/quay/files/.env"
+    dest: "/var/provotum/files/.env"
     content: |
       IDENTITY_PROVIDER_URL={{identity_provider_url}}
       IDENTITY_PROVIDER_IMAGE={{identity_provider_image}}
@@ -23,6 +23,11 @@
     replace: 'idpAPIUrl: "https://{{identity_provider_url}}"'
     regexp: 'randomizerAPIUrl:'
     replace: 'randomizerAPIUrl: "https://{{randomizer_url}}"'
+
+- name: Docker Login
+  become: true
+  shell:
+    cmd: "docker login {{docker_registry}} -u provotum -p {{docker_registry_password}}"
 
 - name: Run Server
   become: true
