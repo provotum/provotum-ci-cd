@@ -1,0 +1,26 @@
+- name: Copy docker-compose file
+  copy:
+    src: ../files
+    dest: /var/sealer
+
+- name: Creating .env file
+  copy:
+    dest: "/var/sealer/files/.env"
+    content: |
+      SEALER_IMAGE={{sealer_image}}
+      SEALER_NUMBER={{sealer_number}}
+      VOTING_AUTHORITY_URL={{voting_authority_url}}
+      MONGO_DB_URL={{subdomain_server}}.{{domain}}:27017
+      SEALER_URL={{sealer_url}}
+      SUBSTRATE_HOST={{substrate_host}}
+
+- name: Docker Login
+  become: true
+  shell:
+    cmd: "docker login {{docker_registry}} -u {{docker_registry_username}} -p {{docker_registry_password}}"
+
+- name: Run Sealer
+  become: true
+  shell:
+    chdir: /var/sealer/files
+    cmd: "docker-compose up -d"

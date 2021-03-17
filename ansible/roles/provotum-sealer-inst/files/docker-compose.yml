@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  sealer:
+    image: ${SEALER_IMAGE}
+    environment:
+      - KEY=//Sealer${SEALER_NUMBER}
+      - DKG_KEY=sealer${SEALER_NUMBER}
+      - NAME=sealer-${SEALER_NUMBER}
+      - DEBUG=client,binary
+      - VOTING_AUTHORITY_URL=https://${VOTING_AUTHORITY_URL}
+      - MONGODB_URI=mongodb://${MONGO_DB_URL}
+      - MONGODB_NAME=sealer-${SEALER_NUMBER}
+      - SUBSTRATE_HOST=${SUBSTRATE_HOST}
+      - VIRTUAL_HOST=${SEALER_URL}
+      - LETSENCRYPT_HOST=${SEALER_URL}
+      - VIRTUAL_PORT=4000
+    restart: always
+    networks:
+      - "provotum-sealer"
+
+networks:
+  provotum-sealer:

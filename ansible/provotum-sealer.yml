@@ -1,0 +1,15 @@
+---
+
+- name: Set up a sealer
+  hosts: all
+  become: yes
+  vars:
+    - update_apt_cache: yes
+
+  roles:
+    - docker
+    - docker-compose
+    - provotum-sealer-inst
+    - role: reverse-proxy
+      vars:
+        network: files_provotum-sealer

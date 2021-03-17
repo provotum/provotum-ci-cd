@@ -2,17 +2,14 @@
 
 application_name: provotum-server
 
-docker_registry: quay.provotum.io
-docker_registry_password: password
-
-identity_provider_url: identity.server.provotum.io
+identity_provider_url: "identity.{{domain}}"
 identity_provider_image: "{{docker_registry}}/provotum/identity-provider"
 
-randomizer_url: randomizer.server.provotum.io
+randomizer_url: "randomizer.{{domain}}"
 randomizer_image: "{{docker_registry}}/provotum/randomizer"
 
-voting_authority_url: voting-authority.server.provotum.io
+voting_authority_url: "voting-authority.{{domain}}"
 voting_authority_image: "{{docker_registry}}/provotum/voting-authority"
 
-frontend_url: gui.server.provotum.io
+frontend_url: "gui.{{domain}}"
 frontend_image: "{{docker_registry}}/provotum/voter"

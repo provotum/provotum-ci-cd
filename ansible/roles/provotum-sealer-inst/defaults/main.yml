@@ -1,0 +1,10 @@
+---
+
+application_name: provotum-sealer
+
+sealer_url: "sealer{{sealer_number}}.{{domain}}"
+sealer_image: "{{docker_registry}}/provotum/sealer"
+
+voting_authority_url: "voting-authority.{{subdomain_server}}.{{domain}}"
+
+substrate_host: "{{subdomain_server}}.{{domain}}"
