@@ -7,4 +7,4 @@ sealer_image: "{{docker_registry}}/provotum/sealer"
 
 voting_authority_url: "voting-authority.{{subdomain_server}}.{{domain}}"
 
-substrate_host: "{{subdomain_server}}.{{domain}}"
+substrate_host: "ws://{{subdomain_server}}.{{domain}}"
