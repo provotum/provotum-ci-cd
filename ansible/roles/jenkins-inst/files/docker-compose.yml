@@ -6,10 +6,12 @@ services:
     build: .
     networks:
       - "provotum-jenkins"
-    environment:
-      - VIRTUAL_HOST=${VIRTUAL_HOST}
-      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
-      - VIRTUAL_PORT=8080
+    labels:
+      - "traefik.docker.network=files_provotum-jenkins"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${VIRTUAL_HOST}"
+      - "traefik.basic.port=8080"
+      - "traefik.basic.protocol=http"
     volumes:
       - "/var/jenkins/files/data:/var/jenkins_home"
       - "/var/run/docker.sock:/var/run/docker.sock"

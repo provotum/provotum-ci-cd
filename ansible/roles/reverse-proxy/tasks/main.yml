@@ -8,7 +8,23 @@
     dest: "/var/proxy/files/.env"
     content: |
       NETWORK={{ network }}
-      DEFAULT_MAIL={{ default_mail }}
+
+- name: Insert domain for traefik
+  replace:
+    path: /var/proxy/files/config/traefik.toml
+    regexp: 'domain ='
+    replace: 'domain = "{{ domain }}"'
+
+- name: Insert default email for traefik
+  replace:
+    path: /var/proxy/files/config/traefik.toml
+    regexp: 'email ='
+    replace: 'email = "{{ default_mail }}"'
+
+- name: Change acme permission
+  file:
+    path: /var/proxy/files/config/acme.json
+    mode: '0600'
 
 
 - name: Run proxy

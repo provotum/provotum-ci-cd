@@ -10,7 +10,6 @@
     dest: "/var/jenkins/files/.env"
     content: |
       VIRTUAL_HOST={{ hostname }}
-      LETSENCRYPT_HOST={{ hostname }}
 
 - name: Run jenkins
   become: true
