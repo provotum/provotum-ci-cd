@@ -1,0 +1,22 @@
+- name: Copy docker-compose file
+  copy:
+    src: ../files
+    dest: /var/server
+
+- name: Creating .env file
+  copy:
+    dest: "/var/server/files/.env"
+    content: |
+      NODE_IMAGE={{node_image}}
+      RANDOMIZER_IMAGE={{randomizer_image}}
+
+- name: Docker Login
+  become: true
+  shell:
+    cmd: "docker login {{docker_registry}} -u {{docker_registry_username}} -p {{docker_registry_password}}"
+
+- name: Run Server
+  become: true
+  shell:
+    chdir: /var/server/files
+    cmd: "docker-compose up -d"

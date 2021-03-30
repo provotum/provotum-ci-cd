@@ -1,0 +1,12 @@
+---
+
+- name: Set up all server applications for Provotum 4.0 Mixnet
+  hosts: all
+  become: yes
+  vars:
+    - update_apt_cache: yes
+
+  roles:
+    - docker
+    - docker-compose
+    - provotum-mixnet-server-inst

@@ -12,9 +12,13 @@ services:
       - MONGODB_URI=mongodb://${MONGO_DB_URL}
       - MONGODB_NAME=sealer-${SEALER_NUMBER}
       - SUBSTRATE_HOST=${SUBSTRATE_HOST}
-      - VIRTUAL_HOST=${SEALER_URL}
-      - LETSENCRYPT_HOST=${SEALER_URL}
-      - VIRTUAL_PORT=4000
+      - SUBSTRATE_WS_PORT=443
+    labels:
+      - "traefik.docker.network=files_provotum-sealer"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${SEALER_URL}"
+      - "traefik.basic.port=4000"
+      - "traefik.basic.protocol=http"
     restart: always
     networks:
       - "provotum-sealer"

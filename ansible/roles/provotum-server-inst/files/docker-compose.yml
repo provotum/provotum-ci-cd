@@ -14,18 +14,23 @@ services:
     image: ${IDENTITY_PROVIDER_IMAGE}
     environment:
       - VOTING_AUTHORITY_URL=http://va:4000
-      - VIRTUAL_HOST=${IDENTITY_PROVIDER_URL}
-      - LETSENCRYPT_HOST=${IDENTITY_PROVIDER_URL}
-      - VIRTUAL_PORT=4000
+    labels:
+      - "traefik.docker.network=files_provotum-server"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${IDENTITY_PROVIDER_URL}"
+      - "traefik.basic.port=4000"
+      - "traefik.basic.protocol=http"
     networks:
       - "provotum-server"
     restart: always
   randomizer:
     image: ${RANDOMIZER_IMAGE}
-    environment:
-      - VIRTUAL_HOST=${RANDOMIZER_URL}
-      - LETSENCRYPT_HOST=${RANDOMIZER_URL}
-      - VIRTUAL_PORT=4000
+    labels:
+      - "traefik.docker.network=files_provotum-server"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${RANDOMIZER_URL}"
+      - "traefik.basic.port=4000"
+      - "traefik.basic.protocol=http"
     networks:
       - "provotum-server"
     restart: always
@@ -37,12 +42,18 @@ services:
       - DEBUG=binary,client
       - MONGODB_URI=mongodb://mongodb:27017
       - MONGODB_NAME=voting-authority
-      - VIRTUAL_HOST=${VOTING_AUTHORITY_URL}
-      - LETSENCRYPT_HOST=${VOTING_AUTHORITY_URL}
-      - VIRTUAL_PORT=4000
-    ports:
-      - 30333:30333
-      - 9944:9944
+    labels:
+      - "traefik.docker.network=files_provotum-server"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${VOTING_AUTHORITY_URL}"
+      - "traefik.basic.port=4000"
+      - "traefik.basic.protocol=http"
+      - "traefik.chain.frontend.rule=Host:${CHAIN_URL}"
+      - "traefik.chain.port=30333"
+      - "traefik.chain.protocol=http"
+      - "traefik.chainws.frontend.rule=Host:${CHAIN_WS_URL}"
+      - "traefik.chainws.port=9944"
+      - "traefik.chainws.protocol=http"
     depends_on:
       - mongodb
     networks:
@@ -50,10 +61,12 @@ services:
     restart: always
   frontend:
     image: ${FRONTEND_IMAGE}
-    environment:
-      - VIRTUAL_HOST=${FRONTEND_URL}
-      - LETSENCRYPT_HOST=${FRONTEND_URL}
-      - VIRTUAL_PORT=80
+    labels:
+      - "traefik.docker.network=files_provotum-server"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${FRONTEND_URL}"
+      - "traefik.basic.port=80"
+      - "traefik.basic.protocol=http"
     networks:
       - "provotum-server"
     volumes:
