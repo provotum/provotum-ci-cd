@@ -41,6 +41,6 @@ services:
 
   # Randomizer is a simple web service to re-encrypt the voter's ballots
   randomizer:
-    container_name: charlie
+    container_name: randomizer
     image: ${RANDOMIZER_IMAGE}
     network_mode: host
