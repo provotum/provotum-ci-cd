@@ -10,7 +10,6 @@
     - docker
     - docker-compose
     - provotum-v2-server-inst
-    - provotum-v2-post-voter
     - role: reverse-proxy
       vars:
         network: e-voting
