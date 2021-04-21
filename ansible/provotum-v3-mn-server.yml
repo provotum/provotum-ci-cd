@@ -1,6 +1,6 @@
 ---
 
-- name: Set up all server applications for Provotum 4.0 Mixnet
+- name: Set up all server applications for Provotum 3.0 MN
   hosts: all
   become: yes
   vars:
@@ -9,4 +9,4 @@
   roles:
     - docker
     - docker-compose
-    - provotum-mixnet-server-inst
+    - provotum-v3-mn-server-inst

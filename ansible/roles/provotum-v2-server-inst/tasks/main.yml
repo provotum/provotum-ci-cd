@@ -1,0 +1,35 @@
+- name: Install jq
+  apt: name=jq state=latest update_cache=yes
+
+- name: Install nodejs
+  apt: name=nodejs state=latest update_cache=yes
+
+- name: Install npm
+  apt: name=npm state=latest update_cache=yes
+
+- name: Clone Provotum v2 repo
+  git:
+    repo: 'https://github.com/provotum/provotum-v2.git'
+    dest: /var/provotum
+    version: roger-deployment
+
+- name: Modify system.json
+  become: true
+  shell: |
+    echo "$( jq ".services.voter_frontend.ip.external=\"{{voter_frontend_url}}\"" "/var/provotum/system.json" )" > /var/provotum/system.json
+    echo "$( jq ".services.voting_authority_backend.ip.external=\"{{voting_authority_url}}\"" "/var/provotum/system.json" )" > /var/provotum/system.json
+    echo "$( jq ".services.access_provider_backend.ip.external=\"{{access_provider_url}}\"" "/var/provotum/system.json" )" > /var/provotum/system.json
+    echo "$( jq ".services.identity_provider_backend.ip.external=\"{{identity_provider_url}}\"" "/var/provotum/system.json" )" > /var/provotum/system.json
+    echo "$( jq ".services.sealer_backend_1.ip.external=\"{{sealer1_url}}\"" "/var/provotum/system.json" )" > /var/provotum/system.json
+    echo "$( jq ".services.sealer_backend_2.ip.external=\"{{sealer2_url}}\"" "/var/provotum/system.json" )" > /var/provotum/system.json
+    echo "$( jq ".services.sealer_backend_3.ip.external=\"{{sealer3_url}}\"" "/var/provotum/system.json" )" > /var/provotum/system.json
+    echo "$( jq ".services.sealer_parity_1.ip.external=\"{{sealer1_parity_url}}\"" "/var/provotum/system.json" )" > /var/provotum/system.json
+    echo "$( jq ".services.sealer_parity_2.ip.external=\"{{sealer2_parity_url}}\"" "/var/provotum/system.json" )" > /var/provotum/system.json
+    echo "$( jq ".services.sealer_parity_3.ip.external=\"{{sealer3_parity_url}}\"" "/var/provotum/system.json" )" > /var/provotum/system.json
+  register: json
+
+- name: Run Provotum v2
+  become: true
+  shell:
+    chdir: /var/provotum
+    cmd: ./docker-prod-up.sh

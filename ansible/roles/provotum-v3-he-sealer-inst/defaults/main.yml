@@ -1,6 +1,6 @@
 ---
 
-application_name: provotum-sealer
+application_name: provotum-v3-he-sealer
 
 sealer_url: "sealer{{sealer_number}}.{{domain}}"
 sealer_image: "{{docker_registry}}/provotum/sealer-hofmann"

@@ -1,0 +1,14 @@
+---
+
+application_name: provotum-v2
+
+voter_frontend_url: "gui.{{domain}}"
+voting_authority_url: "voting-authority.{{domain}}"
+access_provider_url: "access-provider.{{domain}}"
+identity_provider_url: "identity-provider.{{domain}}"
+sealer1_url: "sealer1.{{domain}}"
+sealer1_parity_url: "parity1.{{domain}}"
+sealer2_url: "sealer2.{{domain}}"
+sealer2_parity_url: "parity2.{{domain}}"
+sealer3_url: "sealer3.{{domain}}"
+sealer3_parity_url: "parity3.{{domain}}"

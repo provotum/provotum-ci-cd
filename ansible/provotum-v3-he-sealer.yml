@@ -1,6 +1,6 @@
 ---
 
-- name: Set up a sealer
+- name: Set up a sealer for Provotum 3.0 HE
   hosts: all
   become: yes
   vars:
@@ -9,7 +9,7 @@
   roles:
     - docker
     - docker-compose
-    - provotum-sealer-inst
+    - provotum-v3-he-sealer-inst
     - role: reverse-proxy
       vars:
         network: files_provotum-sealer
