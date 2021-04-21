@@ -2,7 +2,7 @@
 
 application_name: provotum-v2
 
-voter_frontend_url: "gui.{{domain}}"
+voter_frontend_url: "voter.{{domain}}"
 voting_authority_url: "voting-authority.{{domain}}"
 access_provider_url: "access-provider.{{domain}}"
 identity_provider_url: "identity-provider.{{domain}}"

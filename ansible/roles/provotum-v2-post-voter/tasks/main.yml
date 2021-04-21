@@ -1,0 +1,8 @@
+- name: POST for Voters
+  uri:
+    url: https://{{identity_provider_url}}/registerVoters
+    method: POST
+    headers:
+      Content-Type: application/json
+    body: {"voters": ["9980280d-32d1-41e9-8959-7c483e43256b","afd948fe-7b48-421b-accb-389619f8456c","5342b7e8-3f8e-4520-ac4e-e0b54f1d1ead"]}
+    body_format: json

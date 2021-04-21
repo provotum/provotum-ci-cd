@@ -1,6 +1,6 @@
 ---
 
-- name: Set up provotum v2 server
+- name: Set up Provotum v2
   hosts: all
   become: yes
   vars:
@@ -10,6 +10,7 @@
     - docker
     - docker-compose
     - provotum-v2-server-inst
+    - provotum-v2-post-voter
     - role: reverse-proxy
       vars:
         network: e-voting

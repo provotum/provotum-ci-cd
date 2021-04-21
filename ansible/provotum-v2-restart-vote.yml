@@ -1,0 +1,11 @@
+---
+
+- name: Restart vote for Provotum v2
+  hosts: all
+  become: yes
+  vars:
+    - update_apt_cache: yes
+
+  roles:
+    - provotum-v2-restart-vote
+    - provotum-v2-post-voter

@@ -1,0 +1,11 @@
+- name: Kill Provotum v2
+  become: true
+  shell:
+    chdir: /var/provotum
+    cmd: ./docker-down.sh
+
+- name: Start Provotum v2
+  become: true
+  shell:
+    chdir: /var/provotum
+    cmd: ./docker-prod-up.sh
