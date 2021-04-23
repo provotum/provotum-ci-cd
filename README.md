@@ -4,10 +4,12 @@ This repo contains all the configuration files to deploy the ci/cd infrastructur
 
 ## Getting started
 ### Info
-The whole infrastructure for provotum will set up the following server:
+This repo contains the set up of the following components:
 - Jenkins (CI-Pipeline)
 - Quay (Docker Registry)
 - Clair (Docker Image Vulnerability Scanner for Quay)
+- Provotum 2.0
+- Provotum 3.0 Mixnet
 
 
 ### Prerequisites
@@ -24,14 +26,4 @@ You also need to have a the following things defined on digitalocean:
 
 ### Installation
 
-After installing the prerequisites and setting up digitalocean you are ready to go to deploy the infrastructure for provotum. Do the following steps:
-
-1) Clone this repo
-2) Run `cd provotum-ci-cd/terraform`
-3) Run `terraform apply -var "do_token=YOUR_PERSONAL_ACCESS_TOKEN" -var "pvt_key=YOUR_PATH_TO_THE_SSH_KEY"`
-
-todo: domain
-### Post-installation steps
-todo
-### Options
-todo
+After installing the prerequisites and setting up digitalocean you are ready to go to deploy different components for the infrastructure of Provotum. Clone this repo, go to `/terraform` and choose your component that you would like to deploy (e.q jenkins) and follow the installation steps in this folder.

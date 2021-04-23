@@ -23,4 +23,8 @@ resource "digitalocean_droplet" "server" {
   provisioner "local-exec" {
     command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i '${self.ipv4_address},' --private-key ${var.pvt_key} --extra-vars 'domain=${var.subdomain_server}.${data.digitalocean_domain.default.name}' ../../ansible/provotum-v2-server.yml"
   }
+
+  provisioner "local-exec" {
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i '${self.ipv4_address},' --private-key ${var.pvt_key} --extra-vars 'domain=${var.subdomain_server}.${data.digitalocean_domain.default.name}' ../../ansible/provotum-v2-restart-vote.yml"
+  }
 }
