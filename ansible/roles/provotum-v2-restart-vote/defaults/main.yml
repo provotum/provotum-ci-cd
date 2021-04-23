@@ -1,3 +1,4 @@
 ---
 
 identity_provider_url: "identity-provider.{{domain}}"
+number_of_voters: 10

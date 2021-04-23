@@ -4,8 +4,35 @@
     chdir: /var/provotum
     cmd: ./docker-down.sh
 
+- name: Add db.json
+  become: true
+  copy:
+    src: ../files/db.json
+    dest: /var/provotum/identity-provider-backend/src/database/db.json
+
+- name: Add voters to db
+  become: true
+  shell: |
+    echo "$( jq '.identities += [{"uuid": "{{1000 | random | to_uuid}}", "username": "{{item}}", "password": "{{item}}"}]' "/var/provotum/identity-provider-backend/src/database/db.json" )" > /var/provotum/identity-provider-backend/src/database/db.json
+  register: json
+  with_sequence: start=0 end={{number_of_voters}} format=user%d
+
 - name: Start Provotum v2
   become: true
   shell:
     chdir: /var/provotum
     cmd: ./docker-prod-up.sh
+
+- name: Create Voters json
+  become: true
+  shell: |
+    echo {\"voters\": "$(jq '.identities | map(.uuid)' /var/provotum/identity-provider-backend/src/database/db.json)"} > /var/provotum/voter.json
+  register: json
+
+- name: Add voters to db
+  become: true
+  shell: |
+    curl -X POST \
+      https://identity-provider.v2.provotum.io/registerVoters \
+      -H 'Content-Type: application/json' \
+      -d '@/var/provotum/voter.json'
