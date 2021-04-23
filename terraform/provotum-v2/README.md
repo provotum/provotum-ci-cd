@@ -17,7 +17,7 @@ To destroy the server just run `terraform destroy -var "do_token=YOUR_DIGITALOCE
 
 ## Configuration
 
-### Restart the voting process
+### Start/restart the voting process
 
 To set up a new vote within Provotum 2.0 move to `/ansible` and run the following command: `ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i 'IP_ADDRESS_OF_SERVER,' --private-key PATH_TO_PRIVATE_KEY --extra-vars 'domain=DOMAIN_SET' provotum-v2-restart-vote.yml`
 

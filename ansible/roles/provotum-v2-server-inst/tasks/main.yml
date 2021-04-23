@@ -13,6 +13,10 @@
     dest: /var/provotum
     version: roger-deployment
 
+- name: Set up network
+  become: true
+  shell: docker network create e-voting
+
 - name: Modify system.json
   become: true
   shell: |
@@ -27,9 +31,3 @@
     echo "$( jq ".services.sealer_parity_2.ip.external=\"{{sealer2_parity_url}}\"" "/var/provotum/system.json" )" > /var/provotum/system.json
     echo "$( jq ".services.sealer_parity_3.ip.external=\"{{sealer3_parity_url}}\"" "/var/provotum/system.json" )" > /var/provotum/system.json
   register: json
-
-- name: Run Provotum v2
-  become: true
-  shell:
-    chdir: /var/provotum
-    cmd: ./docker-prod-up.sh
