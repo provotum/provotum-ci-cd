@@ -15,7 +15,7 @@
 
 - name: Set up network
   become: true
-  shell: docker network create e-voting
+  shell: docker network create e-voting || true
 
 - name: Modify system.json
   become: true
