@@ -1,6 +1,6 @@
 ---
 
-- name: Set up all server applications for Provotum 3.0 MN
+- name: Set up a sealer applications for Provotum 3.0 MN
   hosts: all
   become: yes
   vars:
@@ -10,4 +10,4 @@
     - docker
     - docker-compose
     - subkey
-    - provotum-v3-mn-server-inst
+    - provotum-v3-mn-sealer-inst

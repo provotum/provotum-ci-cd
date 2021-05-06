@@ -1,0 +1,10 @@
+---
+
+- name: Start Provotum 3.0 MN Server
+  hosts: all
+  become: yes
+  vars:
+    - update_apt_cache: yes
+
+  roles:
+    - provotum-v3-mn-server-start

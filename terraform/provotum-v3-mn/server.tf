@@ -1,9 +1,9 @@
 resource "digitalocean_droplet" "server" {
   count  = 1
   image  = "ubuntu-20-04-x64"
-  name   = "server"
+  name   = "v3-mn-server"
   region = "fra1"
-  size   = "s-4vcpu-8gb"
+  size   = "s-2vcpu-2gb"
 
   ssh_keys = [
       data.digitalocean_ssh_key.terraform.id
@@ -18,6 +18,14 @@ resource "digitalocean_droplet" "server" {
       user        = "root"
       private_key = file(var.pvt_key)
     }
+  }
+
+  provisioner "local-exec" {
+    command = "echo [va] >> ../../ansible/inventory"
+  }
+
+  provisioner "local-exec" {
+    command = "echo ${self.ipv4_address} >> ../../ansible/inventory"
   }
 
   provisioner "local-exec" {

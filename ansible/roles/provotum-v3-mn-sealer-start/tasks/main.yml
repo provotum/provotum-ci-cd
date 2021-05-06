@@ -1,0 +1,38 @@
+- name: Create aura.json and grandpa.json
+  become: true
+  shell: |
+    cp key.json aura.json
+    cp key.json grandpa.json
+    echo "$( jq ".params[.params | length] |= . +  \"aura\"" "./aura.json" )" > ./aura.json
+    echo "$( jq ".params[.params | length] |= . +  \"$(awk 'NR == 2 {print $1}' RS='`' FS='`' ./aura)\"" "./aura.json" )" > ./aura.json
+    echo "$( jq ".params[.params | length] |= . +  \"$(awk 'NR == 2 {print $1}' RS='Public key \\(hex\\):  ' FS='\n' ./aura)\"" "./aura.json" )" > ./aura.json
+    echo "$( jq ".params[.params | length] |= . +  \"gran\"" "./grandpa.json" )" > ./grandpa.json
+    echo "$( jq ".params[.params | length] |= . +  \"$(awk 'NR == 2 {print $1}' RS='`' FS='`' ./grandpa)\"" "./grandpa.json" )" > ./grandpa.json
+    echo "$( jq ".params[.params | length] |= . +  \"$(awk 'NR == 2 {print $1}' RS='Public key \\(hex\\):  ' FS='\n' ./grandpa)\"" "./grandpa.json" )" > ./grandpa.json
+
+- name: Copy customSpec.json
+  copy:
+    src: ../../provotum-v3-mn-server-inst/files/customSpec.json
+    dest: ./
+
+- name: Add bootnode to .env
+  shell: echo BOOTNODE={{bootnode}} >> ./.env
+
+- name: Run Server
+  become: true
+  shell:
+    cmd: "docker-compose up -d"
+
+- pause:
+    seconds: 20
+
+- name: Add aura key to keystore
+  shell: curl http://localhost:9933 -H "Content-Type:application/json;charset=utf-8" -d "@./aura.json"
+
+- name: Add grandpa key to keystore
+  shell: curl http://localhost:9933 -H "Content-Type:application/json;charset=utf-8" -d "@./grandpa.json"
+
+- name: Restart Server
+  become: true
+  shell:
+    cmd: "docker-compose restart"

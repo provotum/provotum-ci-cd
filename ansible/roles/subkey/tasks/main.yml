@@ -1,0 +1,16 @@
+- name: Install Substrate
+  shell: curl https://getsubstrate.io -sSf | bash -s -- --fast
+
+- name: Install subkey
+  shell: /root/.cargo/bin/cargo install --force subkey --git https://github.com/paritytech/substrate --version 2.0.1 --locked
+
+- name: Generate Aura Keys
+  shell: /root/.cargo/bin/subkey generate --scheme sr25519 > ./aura
+
+- name: Generate Grandpa Keys
+  shell: /root/.cargo/bin/subkey inspect --scheme ed25519 "$(awk 'NR == 2 {print $1}' RS='`' FS='`' ./aura)" > ./grandpa
+
+- name: Copy key.json
+  copy:
+    src: ../files/key.json
+    dest: ./

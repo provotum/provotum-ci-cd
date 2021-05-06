@@ -1,0 +1,48 @@
+- name: Install jq
+  apt: name=jq state=latest update_cache=yes
+
+- name: Copy docker-compose file
+  copy:
+    src: ../files/docker-compose.yml
+    dest: ./
+
+- name: Creating .env file
+  copy:
+    dest: "./.env"
+    content: |
+      SEALER_NUMBER={{sealer_number}}
+      NODE_IMAGE={{node_image}}
+
+- name: Docker Login
+  become: true
+  shell:
+    cmd: "docker login {{docker_registry}} -u {{docker_registry_username}} -p {{docker_registry_password}}"
+
+- name: Get aura key
+  command: "awk 'NR == 2 {print $1}' RS='SS58 Address:      ' FS='\n' ./aura"
+  register: auraPublicKey
+
+- name: Get grandpa key
+  command: "awk 'NR == 2 {print $1}' RS='SS58 Address:      ' FS='\n' ./grandpa"
+  register: grandpaPublicKey
+
+- name: Add aura key to authorities
+  become: true
+  local_action: shell echo "$( jq ".genesis.runtime.palletAura.authorities[.genesis.runtime.palletAura.authorities | length] |= . +  \"{{auraPublicKey.stdout}}\"" "./roles/provotum-v3-mn-server-inst/files/customSpec.json" )" > ./roles/provotum-v3-mn-server-inst/files/customSpec.json
+
+- name: Add grandpa key to authorities
+  become: true
+  local_action: shell echo "$( jq ".genesis.runtime.palletGrandpa.authorities[.genesis.runtime.palletGrandpa.authorities | length] |= . + [\"{{grandpaPublicKey.stdout}}\", 1]"  "./roles/provotum-v3-mn-server-inst/files/customSpec.json" )" > ./roles/provotum-v3-mn-server-inst/files/customSpec.json
+
+- name: Add aura key to balances
+  become: true
+  local_action: shell echo "$( jq ".genesis.runtime.palletBalances.balances[.genesis.runtime.palletBalances.balances | length] |= . + [\"{{auraPublicKey.stdout}}\", 1152921504606846976]"  "./roles/provotum-v3-mn-server-inst/files/customSpec.json" )" > ./roles/provotum-v3-mn-server-inst/files/customSpec.json
+
+- name: Add aura key to sudo
+  become: true
+  local_action: shell echo "$( jq ".genesis.runtime.palletMixnet.sealers[.genesis.runtime.palletMixnet.sealers | length] |= . +  \"{{auraPublicKey.stdout}}\"" "./roles/provotum-v3-mn-server-inst/files/customSpec.json" )" > ./roles/provotum-v3-mn-server-inst/files/customSpec.json
+
+- name: Add aura key to sudo
+  become: true
+  local_action: shell echo "$( jq ".genesis.runtime.palletSudo.key=\"{{auraPublicKey.stdout}}\""  "./roles/provotum-v3-mn-server-inst/files/customSpec.json" )" > ./roles/provotum-v3-mn-server-inst/files/customSpec.json
+  when: "sealer_number == '0'"

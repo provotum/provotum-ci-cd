@@ -5,5 +5,9 @@ variable "docker_registry_username" {}
 variable "docker_registry_password" {}
 variable "subdomain_server" {
   type = string
-  default = "server"
+  default = "server.v3-mn"
+}
+variable "nr_sealers" {
+  type = number
+  default = 2
 }
