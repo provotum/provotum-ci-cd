@@ -21,11 +21,16 @@ resource "digitalocean_droplet" "server" {
   }
 
   provisioner "local-exec" {
-    command = "echo [va] >> ../../ansible/inventory"
+    when    = destroy
+    command = "echo '' > ../../ansible/provotum-v3-mn-server-inventory"
   }
 
   provisioner "local-exec" {
-    command = "echo ${self.ipv4_address} >> ../../ansible/inventory"
+    command = "echo ${self.ipv4_address} >> ../../ansible/provotum-v3-mn-server-inventory"
+  }
+
+  provisioner "local-exec" {
+    command = "sudo cp ../../ansible/roles/provotum-v3-mn-server-inst/files/customSpecDefault.json ../../ansible/roles/provotum-v3-mn-server-inst/files/customSpec.json"
   }
 
   provisioner "local-exec" {

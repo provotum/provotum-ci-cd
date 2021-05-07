@@ -1,10 +1,6 @@
 - name: Install jq
   apt: name=jq state=latest update_cache=yes
 
-- name: Copy customSpecDefault.json to customSpec.json
-  become: true
-  local_action: shell cp ./roles/provotum-v3-mn-server-inst/files/customSpecDefault.json ./roles/provotum-v3-mn-server-inst/files/customSpec.json
-
 - name: Copy docker-compose file
   copy:
     src: ../files/docker-compose.yml

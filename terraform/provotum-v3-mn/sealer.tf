@@ -21,11 +21,12 @@ resource "digitalocean_droplet" "sealer" {
   }
 
   provisioner "local-exec" {
-    command = "echo [sealer-${count.index}] >> ../../ansible/inventory"
+    when    = destroy
+    command = "echo '' > ../../ansible/provotum-v3-mn-sealer-inventory"
   }
 
   provisioner "local-exec" {
-    command = "echo ${self.ipv4_address} >> ../../ansible/inventory"
+    command = "echo ${self.ipv4_address} >> ../../ansible/provotum-v3-mn-sealer-inventory"
   }
 
   provisioner "local-exec" {
