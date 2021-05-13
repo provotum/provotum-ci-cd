@@ -3,3 +3,4 @@
 application_name: provotum-mixnet-sealer
 
 node_image: "{{docker_registry}}/provotum/node-eck"
+client_image: "{{docker_registry}}/provotum/client-eck"

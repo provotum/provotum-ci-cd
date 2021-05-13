@@ -6,12 +6,21 @@
     src: ../files/docker-compose.yml
     dest: ./
 
+- name: Get mnemonic
+  command: "awk 'NR == 2 {print $1}' RS='`' FS='`' ./aura"
+  register: mnemonic
+
+
 - name: Creating .env file
   copy:
     dest: "./.env"
     content: |
       NODE_IMAGE={{node_image}}
       RANDOMIZER_IMAGE={{randomizer_image}}
+      CLIENT_IMAGE={{client_image}}
+      VA_URL=va:9944
+      VA_MNEMONIC="{{mnemonic.stdout}}"
+      RANDOMIZER_URL=randomizer:8080
 
 - name: Docker Login
   become: true

@@ -7,7 +7,10 @@ services:
     container_name: va
     image: ${NODE_IMAGE}
     command: --chain=./customSpec.json --name va --base-path /tmp/va --port 30333 --ws-port 9944 --rpc-port 9933 --ws-external --rpc-external --rpc-cors all --execution Native
-    network_mode: host
+    ports:
+      - 30333:30333
+      - 9933:9933
+      - 9944:9944
     volumes:
       - ./customSpec.json:/provotum/customSpec.json
 
@@ -15,4 +18,13 @@ services:
   randomizer:
     container_name: randomizer
     image: ${RANDOMIZER_IMAGE}
-    network_mode: host
+    ports:
+      - 8080:8080
+
+  client:
+    container_name: client
+    image: ${CLIENT_IMAGE}
+    environment:
+      - "VA_URL=${VA_URL}"
+      - "VA_MNEMONIC=${VA_MNEMONIC}"
+      - "RANDOMIZER_URL=${RANDOMIZER_URL}"

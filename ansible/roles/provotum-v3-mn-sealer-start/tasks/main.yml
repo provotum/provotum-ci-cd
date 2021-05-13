@@ -22,6 +22,9 @@
 - name: Add bootnode to .env
   shell: echo BOOTNODE={{bootnode}} >> ./.env
 
+- name: Add va url
+  shell: echo {{bootnode}} | awk 'NR == 3 {print $1}' RS='/' FS='/' | xargs -i echo VA_URL={}:9944 >> ./.env
+
 - name: Run Server
   become: true
   shell:

@@ -10,3 +10,10 @@ services:
     network_mode: host
     volumes:
       - ./customSpec.json:/provotum/customSpec.json
+
+  client:
+    container_name: client
+    image: ${CLIENT_IMAGE}
+    environment:
+      - "VA_URL=${VA_URL}"
+      - "SEALER_MNEMONIC=${SEALER_MNEMONIC}"
