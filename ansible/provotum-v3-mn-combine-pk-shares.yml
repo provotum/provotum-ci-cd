@@ -1,0 +1,10 @@
+---
+
+- name: Create PK shares
+  hosts: all
+  become: yes
+  vars:
+    - update_apt_cache: yes
+
+  roles:
+    - provotum-v3-mn-create-pk-shares

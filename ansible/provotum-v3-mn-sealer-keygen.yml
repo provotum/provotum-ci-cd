@@ -1,0 +1,10 @@
+---
+
+- name: Sealer Keygen
+  hosts: all
+  become: yes
+  vars:
+    - update_apt_cache: yes
+
+  roles:
+    - provotum-v3-mn-sealer-keygen

@@ -1,0 +1,9 @@
+---
+
+- name: "Set phase to {{phase}}"
+  become: true
+  shell:
+    cmd: "docker-compose run client ./provotum-cli va set_phase -v {{vote}} -p {{phase}}"
+  register: out
+
+- debug: var=out.stdout_lines

@@ -1,0 +1,9 @@
+---
+
+- name: Combine PK shares
+  become: true
+  shell:
+    cmd: "docker-compose run client ./provotum-cli va combine_pk_shares -v {{vote}}"
+  register: out
+
+- debug: var=out.stdout_lines

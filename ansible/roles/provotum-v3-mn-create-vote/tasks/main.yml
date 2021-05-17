@@ -1,0 +1,9 @@
+---
+
+- name: Create Vote
+  become: true
+  shell:
+    cmd: "docker-compose run client ./provotum-cli va setup -v {{vote}} -q {{question}}"
+  register: out
+
+- debug: var=out.stdout_lines
