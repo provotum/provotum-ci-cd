@@ -1,0 +1,28 @@
+- name: Copy docker-compose files
+  copy:
+    src: ../files
+    dest: /var/telegraf
+
+- name: Insert influx url
+  replace:
+    path: /var/telegraf/files/config/telegraf/telegraf.conf
+    regexp: 'urls = \[\]'
+    replace: 'urls = ["https://{{ influxdb_url }}"]'
+
+- name: Insert influx username
+  replace:
+    path: /var/telegraf/files/config/telegraf/telegraf.conf
+    regexp: 'username = "set"'
+    replace: 'username = "{{influxdb_username}}"'
+
+- name: Insert influx password
+  replace:
+    path: /var/telegraf/files/config/telegraf/telegraf.conf
+    regexp: 'password = "set"'
+    replace: 'password = "{{influxdb_password}}"'
+
+- name: Run telegraf
+  become: true
+  shell:
+    chdir: /var/telegraf/files
+    cmd: "docker-compose up -d"

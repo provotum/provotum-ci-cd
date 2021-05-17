@@ -30,6 +30,6 @@ resource "digitalocean_droplet" "sealer" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i '${self.ipv4_address},' --private-key ${var.pvt_key} --extra-vars 'docker_registry=${var.docker_registry} docker_registry_username=${var.docker_registry_username} docker_registry_password=${var.docker_registry_password} domain=${data.digitalocean_domain.default.name} sealer_number=${count.index}' ../../ansible/provotum-v3-mn-sealer.yml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i '${self.ipv4_address},' --private-key ${var.pvt_key} --extra-vars 'docker_registry=${var.docker_registry} docker_registry_username=${var.docker_registry_username} docker_registry_password=${var.docker_registry_password} domain=${data.digitalocean_domain.default.name} sealer_number=${count.index} influxdb_url=${var.influxdb_url} influxdb_username=${var.influxdb_username} influxdb_password=${var.influxdb_password}' ../../ansible/provotum-v3-mn-sealer.yml"
   }
 }

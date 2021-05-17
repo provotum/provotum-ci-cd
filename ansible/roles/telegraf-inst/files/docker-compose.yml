@@ -1,0 +1,17 @@
+---
+version: '2.3'
+
+services:
+
+  telegraf:
+    container_name: telegraf
+    image: telegraf
+    environment:
+      - HOST_PROC=/host/proc
+    privileged: true
+    network_mode: host
+    volumes:
+      - /proc:/host/proc:ro
+      - ./config/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/utmp:/var/run/utmp

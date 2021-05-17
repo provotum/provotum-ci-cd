@@ -1,0 +1,10 @@
+---
+
+grafana_user: user
+grafana_password: password
+
+influx_user: influx
+influx_password: password
+
+influx_virtual_host: "influx.{{hostname}}"
+grafana_virtual_host: "grafana.{{hostname}}"

@@ -11,3 +11,4 @@
     - docker-compose
     - subkey
     - provotum-v3-mn-server-inst
+    - telegraf-inst

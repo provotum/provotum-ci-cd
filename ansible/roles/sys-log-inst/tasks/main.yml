@@ -1,0 +1,34 @@
+- name: Copy docker-compose files
+  copy:
+    src: ../files
+    dest: /var/sys-log
+
+- name: Creating .env file
+  copy:
+    dest: "/var/sys-log/files/.env"
+    content: |
+      INFLUXDB_USERNAME={{ influx_user }}
+      INFLUXDB_PASSWORD={{ influx_password }}
+      INFLUXDB_DATABASE=influxdb
+      INFLUX_VIRTUAL_HOST={{ influx_virtual_host }}
+      GF_SECURITY_ADMIN_USER={{ grafana_user }}
+      GF_SECURITY_ADMIN_PASSWORD={{ grafana_password }}
+      GRAFANA_VIRTUAL_HOST={{ grafana_virtual_host }}
+
+- name: Insert influx username
+  replace:
+    path: /var/sys-log/files/config/grafana/datasource.yaml
+    regexp: 'user:'
+    replace: 'user: {{ influx_user }}'
+
+- name: Insert influx password
+  replace:
+    path: /var/sys-log/files/config/grafana/datasource.yaml
+    regexp: 'password:'
+    replace: 'password: {{ influx_password }}'
+
+- name: Run sys log
+  become: true
+  shell:
+    chdir: /var/sys-log/files
+    cmd: "docker-compose up -d"
