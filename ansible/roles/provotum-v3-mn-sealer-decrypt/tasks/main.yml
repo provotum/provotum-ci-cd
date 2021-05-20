@@ -7,7 +7,7 @@
 - name: Decrypt
   become: true
   shell:
-    cmd: "docker-compose run client ./provotum-cli sealer decrypt -v {{vote}} -q {{question}} -s {{seed.stdout}}"
+    cmd: "docker-compose run client ./provotum-cli sealer decrypt -v {{vote}} -q {{question}} -s 1"
   register: out
 
 - debug: var=out.stdout_lines

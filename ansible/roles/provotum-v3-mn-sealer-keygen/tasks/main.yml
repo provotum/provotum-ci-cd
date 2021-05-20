@@ -7,7 +7,7 @@
 - name: Create Key
   become: true
   shell:
-    cmd: "docker-compose run client ./provotum-cli sealer keygen -v {{vote}} -s {{seed.stdout}}"
+    cmd: "docker-compose run client ./provotum-cli sealer keygen -v {{vote}} -s 1"
   register: out
 
 - debug: var=out.stdout_lines
