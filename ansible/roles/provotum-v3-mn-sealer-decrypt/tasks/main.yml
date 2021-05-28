@@ -1,13 +1,9 @@
 ---
 
-- name: Get private seed
-  command: "awk 'NR == 2 {print $1}' RS='Secret seed:       0x' FS='\n' ./aura"
-  register: seed
-
 - name: Decrypt
   become: true
   shell:
-    cmd: "docker-compose run client ./provotum-cli sealer decrypt -v {{vote}} -q {{question}} -s 1"
+    cmd: "docker-compose run client ./provotum-cli sealer decrypt -v {{vote}} -q {{question}} -s E5EAF02AC60ACC93ED874422A52ECB238FEEE5AB6ADD835FD1A0753D0A8F78E537D2B95BB79D8DCAEC642C1E9F23829B5C2780BF38737DF8BB300D01334A0D0BD8645CBFA73A6160FFE393C48CBBBCA060F0FF8EC6D31BEB5CCEED7F2F0BB088017163BC6DF45A0ECB1BCD289B06CBBFEA21AD08E1847F3F7378D56CED94640D6EF0D3D37BE69D0063"
   register: out
 
 - debug: var=out.stdout_lines
