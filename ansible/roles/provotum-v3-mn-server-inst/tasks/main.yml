@@ -21,6 +21,7 @@
       VA_URL=va:9944
       VA_MNEMONIC="{{mnemonic.stdout}}"
       RANDOMIZER_URL=randomizer:8080
+      BATCH_SIZE={{batch_size}}
 
 - name: Docker Login
   become: true

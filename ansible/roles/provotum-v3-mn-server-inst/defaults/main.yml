@@ -5,3 +5,5 @@ application_name: provotum-mixnet-server
 node_image: "{{docker_registry}}/provotum/node-eck"
 randomizer_image: "{{docker_registry}}/provotum/randomizer-eck"
 client_image: "{{docker_registry}}/provotum/client-eck"
+
+batch_size: 75
