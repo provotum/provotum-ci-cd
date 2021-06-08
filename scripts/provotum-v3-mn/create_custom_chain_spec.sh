@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 cp ../../ansible/roles/provotum-v3-mn-server-inst/files/customSpecDefault.json ../../ansible/roles/provotum-v3-mn-server-inst/files/customSpec.json
