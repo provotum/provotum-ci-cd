@@ -8,24 +8,21 @@ This folder contains the full deployment for provotum 2.0.
 
 1. Navigate to this folder: `cd terraform/provotum-v2`
 2. Initialize terraform: `terraform init`
-3. Set up server: `terraform apply -var "do_token=YOUR_DIGITALOCEAN_ACCESS_TOKEN" -var "pvt_key=PATH_TO_YOUR_PRIVATE_KEY"`
-  - `YOUR_DIGITALOCEAN_ACCESS_TOKEN`: Your token for DO
-  - `PATH_TO_YOUR_PRIVATE_KEY`: Path to the private key that is used to set for root user authentication. The corresponding public key needs to be saved on digitalocean with the name 'terraform'
+3. Set up server: `terraform apply -var "do_token=$DO_TOKEN" -var "pvt_key=$PATH_TO_SK"`
 4. Confirm deployment with `YES`
 
 Optional variable: If you wish to change the subdomain (default v2), you can overwrite the variable `subdomain_server` when doing `terraform apply`
 
-To destroy the server just run `terraform destroy -var "do_token=YOUR_DIGITALOCEAN_ACCESS_TOKEN" -var "pvt_key=PATH_TO_YOUR_PRIVATE_KEY"`
+To destroy the server just run `terraform destroy -var "do_token=$DO_TOKEN" -var "pvt_key=$PATH_TO_SK"`
 
 ## Configuration
 
 ### Start/restart the voting process
 
-To set up a new vote within Provotum 2.0 move to `/ansible` and run the following command: `ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i 'IP_ADDRESS_OF_SERVER,' --private-key PATH_TO_PRIVATE_KEY --extra-vars 'domain=DOMAIN_SET' provotum-v2-restart-vote.yml`
+To set up a new vote within Provotum 2.0 move to `/ansible` and run the following command: `ansible-playbook -u root -i 'IP_ADDRESS_OF_SERVER,' --private-key $PATH_TO_SK --extra-vars 'domain=DOMAIN_SET' provotum-v2-restart-vote.yml`
 
 Replace the following:
 - `IP_ADDRESS_OF_SERVER`: The IP adress of the server that Provotum 2.0 is running on
-- `PATH_TO_PRIVATE_KEY`: The path to the private key that you have set in the installation step
 - `DOMAIN_SET`: The domain Provotum 2.0 is running on (Default v2.provotum.io)
 
 ### Change number of voters
