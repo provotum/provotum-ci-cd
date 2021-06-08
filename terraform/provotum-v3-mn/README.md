@@ -31,7 +31,7 @@ This folder contains the full distributed deployment for Provotum 3.0 MN.
 
 Note: The sealers should automatically connect to the bootnode (Voting Authority) and start the POA-protocol. Keys (Aura, Grandpa) are generated in the installation step.
 
-To destroy the server just run `terraform destroy -var "do_token=$DO_TOKEN" -var "pvt_key=$PATH_TO_SK"`
+To destroy the server just run `terraform destroy -var "do_token=$DO_TOKEN" -var "pvt_key=$PATH_TO_SK" -var "docker_registry=$DOCKER_REGISTRY" -var "docker_registry_username=$DOCKER_REGISTRY_USERNAME" -var "docker_registry_password=$DOCKER_REGISTRY_PASSWORD"`
 
 ## Configuration
 
@@ -66,7 +66,7 @@ Create the sealers ElGamal keypairs:
 
 Combine the public key shares with the va:
 
-`ansible-playbook -u root -i provotum-v3-mn-server-inventory --private-key $PATH_TO_SK provotum-v3-mn-combine-pk-shares.yml --extra-vars "vote=VOTE`
+`ansible-playbook -u root -i provotum-v3-mn-server-inventory --private-key $PATH_TO_SK provotum-v3-mn-combine-pk-shares.yml --extra-vars "vote=VOTE"`
 
   - `VOTE`: The name of your vote
 
@@ -74,7 +74,7 @@ Combine the public key shares with the va:
 
 Add a new vote from a voter:
 
-`ansible-playbook -u root -i provotum-v3-mn-server-inventory --private-key $PATH_TO_SK provotum-v3-mn-vote.yml --extra-vars "vote=VOTE question=QUESTION votes=VOTES nrVotes=NUMBER_OF_VOTES`
+`ansible-playbook -u root -i provotum-v3-mn-server-inventory --private-key $PATH_TO_SK provotum-v3-mn-vote.yml --extra-vars "vote=VOTE question=QUESTION votes=VOTES nrVotes=NUMBER_OF_VOTES"`
 
   - `VOTE`: The name of your vote
   - `QUESTION`: Your election question
