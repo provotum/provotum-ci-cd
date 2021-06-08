@@ -32,9 +32,9 @@ In order to create droplets and configure them it is necessary to create a priva
 In order to manage credentials and keys, set up the following environment variables:
 
 - `export PATH_TO_SK=<YOUR_PATH_TO_YOUR_PRIVATE_KEY>`
- - `YOUR_PATH_TO_YOUR_PRIVATE_KEY`: Path to the private key that is used to set for root user authentication. The corresponding public key needs to be saved on digitalocean with the name 'terraform'
+  - `YOUR_PATH_TO_YOUR_PRIVATE_KEY`: Path to the private key that is used to set for root user authentication. The corresponding public key needs to be saved on digitalocean with the name 'terraform'
 - `export DO_TOKEN=<YOUR_DIGITALOCEAN_ACCESS_TOKEN>`
- - `YOUR_DIGITALOCEAN_ACCESS_TOKEN`: Your token for DO
+  - `YOUR_DIGITALOCEAN_ACCESS_TOKEN`: Your token for DO
 
 ### Installation
 
