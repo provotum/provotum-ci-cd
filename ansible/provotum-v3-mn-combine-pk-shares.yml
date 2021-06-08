@@ -7,4 +7,4 @@
     - update_apt_cache: yes
 
   roles:
-    - provotum-v3-mn-create-pk-shares
+    - provotum-v3-mn-combine-pk-shares

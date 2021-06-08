@@ -19,7 +19,7 @@ This folder contains the full distributed deployment for Provotum 3.0 MN.
 1. Install jq: `sudo apt-get install jq`
 2. Navigate to this folder: `cd terraform/provotum-v3-mn`
 3. Initialize terraform: `terraform init`
-4. Set up server: `terraform apply -var "do_token=$DO_TOKEN" -var "pvt_key=$PATH_TO_SK" -var "docker_registry=$DOCKER_REGISTRY" -var "docker_registry_username=$DOCKER_REGISTRY_USERNAME" -var "docker_registry_password=$DOCKER_REGISTRY_PASSWORD`
+4. Set up server: `terraform apply -var "do_token=$DO_TOKEN" -var "pvt_key=$PATH_TO_SK" -var "docker_registry=$DOCKER_REGISTRY" -var "docker_registry_username=$DOCKER_REGISTRY_USERNAME" -var "docker_registry_password=$DOCKER_REGISTRY_PASSWORD"`
 5. Confirm deployment with `YES`
 6. You have now installed all the components for Provotum 3.0 MN. Next, we need to create the custom chain spec in order to configure all nodes to connect to the same network.
 7. Navigate to this folder: `cd ../../scripts/provotum-v3-mn`
@@ -58,7 +58,7 @@ With the following command you can create a new vote:
 
 Create the sealers ElGamal keypairs:
 
-`ansible-playbook -u root -i provotum-v3-mn-sealer-inventory --private-key $PATH_TO_SK provotum-v3-mn-sealer-keygen.yml --extra-vars "vote= VOTE"`
+`ansible-playbook -u root -i provotum-v3-mn-sealer-inventory --private-key $PATH_TO_SK provotum-v3-mn-sealer-keygen.yml --extra-vars "vote=VOTE"`
 
   - `VOTE`: The name of your vote
 
