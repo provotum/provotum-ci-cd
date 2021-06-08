@@ -28,3 +28,4 @@ services:
       - "VA_URL=${VA_URL}"
       - "VA_MNEMONIC=${VA_MNEMONIC}"
       - "RANDOMIZER_URL=${RANDOMIZER_URL}"
+      - "BATCH_SIZE=${BATCH_SIZE}"

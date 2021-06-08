@@ -32,10 +32,6 @@
   command: "awk 'NR == 2 {print $1}' RS='SS58 Address:      ' FS='\n' ./aura"
   register: auraPublicKey
 
-- name: Add aura key to balances
+- name: save public key
   become: true
-  local_action: shell echo "$( jq ".genesis.runtime.palletBalances.balances[.genesis.runtime.palletBalances.balances | length] |= . +  [\"{{auraPublicKey.stdout}}\", 1152921504606846976]" "./roles/provotum-v3-mn-server-inst/files/customSpec.json" )" > ./roles/provotum-v3-mn-server-inst/files/customSpec.json
-
-- name: Add aura key to voting authority
-  become: true
-  local_action: shell echo "$( jq ".genesis.runtime.palletMixnet.votingAuthorities[.genesis.runtime.palletMixnet.votingAuthorities | length] |= . + \"{{auraPublicKey.stdout}}\""  "./roles/provotum-v3-mn-server-inst/files/customSpec.json" )" > ./roles/provotum-v3-mn-server-inst/files/customSpec.json
+  local_action: "shell echo {{auraPublicKey.stdout}} > ./roles/provotum-v3-mn-server-inst/files/server"

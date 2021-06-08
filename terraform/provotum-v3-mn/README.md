@@ -2,7 +2,7 @@
 
 ## Info
 
-This folder contains the full deployment for Provotum 3.0 MN.
+This folder contains the full distributed deployment for Provotum 3.0 MN.
 
 ## Installation
 
@@ -15,10 +15,13 @@ This folder contains the full deployment for Provotum 3.0 MN.
   - `DOCKER_REGISTRY_USERNAME`: The username for the docker docker registry
   - `DOCKER_REGISTRY_PASSWORD`: The password for the docker docker registry
 4. Confirm deployment with `YES`
-5. You have now installed all the components for Provotum 3.0 MN. Next we need to start up the p2p network and run the DL protocol.
-6. Navigate to this folder: `cd ../../ansible`
-7. Start the server (Voting Authority and Randomizer): `ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i provotum-v3-mn-server-inventory --private-key PATH_TO_YOUR_PRIVATE_KEY provotum-v3-mn-server-start.yml`
-8. Start the sealers: `ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i provotum-v3-mn-sealer-inventory --private-key PATH_TO_YOUR_PRIVATE_KEY provotum-v3-mn-sealer-start.yml`
+5. You have now installed all the components for Provotum 3.0 MN. Next, we need to create the custom chain spec in order to configure all nodes to connect to the same network.
+6. Navigate to this folder: `cd ../../scripts/provotum-v3-mn`
+7. Run the following script with sudo: `sudo ./create_custom_chain_spec.sh`
+8. Next we need to start up the p2p network and run the DL protocol.
+9. Navigate to this folder: `cd ../../ansible`
+10. Start the server (Voting Authority and Randomizer): `ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i provotum-v3-mn-server-inventory --private-key PATH_TO_YOUR_PRIVATE_KEY provotum-v3-mn-server-start.yml`
+11. Start the sealers: `ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i provotum-v3-mn-sealer-inventory --private-key PATH_TO_YOUR_PRIVATE_KEY provotum-v3-mn-sealer-start.yml`
 
 Note: The sealers should automatically connect to the bootnode (Voting Authority) and start the POA-protocol. Keys (Aura, Grandpa) are generated in the installation step.
 

@@ -30,10 +30,6 @@ resource "digitalocean_droplet" "server" {
   }
 
   provisioner "local-exec" {
-    command = "sudo cp ../../ansible/roles/provotum-v3-mn-server-inst/files/customSpecDefault.json ../../ansible/roles/provotum-v3-mn-server-inst/files/customSpec.json"
-  }
-
-  provisioner "local-exec" {
     command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i '${self.ipv4_address},' --private-key ${var.pvt_key} --extra-vars 'docker_registry=${var.docker_registry} docker_registry_username=${var.docker_registry_username} docker_registry_password=${var.docker_registry_password} influxdb_url=${var.influxdb_url} influxdb_username=${var.influxdb_username} influxdb_password=${var.influxdb_password}' ../../ansible/provotum-v3-mn-server.yml"
   }
 }
