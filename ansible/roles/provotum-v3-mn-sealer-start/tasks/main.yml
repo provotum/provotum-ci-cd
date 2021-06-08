@@ -46,3 +46,33 @@
   become: true
   shell:
     cmd: "docker-compose restart"
+
+- name: Remove key.json
+  file:
+    path: key.json
+    state: absent
+
+- name: Remove demo.json
+  file:
+    path: demo.json
+    state: absent
+
+- name: Remove aura.json
+  file:
+    path: aura.json
+    state: absent
+
+- name: Remove aura
+  file:
+    path: aura
+    state: absent
+
+- name: Remove grandpa.json
+  file:
+    path: grandpa.json
+    state: absent
+
+- name: Remove grandpa
+  file:
+    path: grandpa
+    state: absent

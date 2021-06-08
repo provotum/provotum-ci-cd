@@ -20,3 +20,8 @@
   copy:
     src: ../files/key.json
     dest: ./
+
+- name: Remove subkey
+  file:
+    path: /root/subkey
+    state: absent
