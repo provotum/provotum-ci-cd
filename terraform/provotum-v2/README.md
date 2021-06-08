@@ -10,7 +10,7 @@ This folder contains the full deployment for provotum 2.0.
 2. Initialize terraform: `terraform init`
 3. Set up server: `terraform apply -var "do_token=YOUR_DIGITALOCEAN_ACCESS_TOKEN" -var "pvt_key=PATH_TO_YOUR_PRIVATE_KEY"`
   - `YOUR_DIGITALOCEAN_ACCESS_TOKEN`: Your token for DO
-  - `PATH_TO_YOUR_PRIVATE_KEY`: Path to the private key that you would like to use to set for root user authentication
+  - `PATH_TO_YOUR_PRIVATE_KEY`: Path to the private key that is used to set for root user authentication. The corresponding public key needs to be saved on digitalocean with the name 'terraform'
 4. Confirm deployment with `YES`
 
 Optional variable: If you wish to change the subdomain (default v2), you can overwrite the variable `subdomain_server` when doing `terraform apply`

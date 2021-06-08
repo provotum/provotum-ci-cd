@@ -25,7 +25,7 @@ You also need to have a the following things defined on digitalocean:
 
 ### Add public key
 
-In order to create droplets and configure them it is necessary to create a private/public keypair on your local computer. Create a [keypair](https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/) and add the public key to your digitalocean account as described in the documentation. It is important that you name your public key 'provotum' such that terraform is able to use the right one when setting up your droplets.
+In order to create droplets and configure them it is necessary to create a private/public keypair on your local computer. Create a [keypair](https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/) and add the public key to your digitalocean account as described in the documentation. It is important that you name your public key 'terraform' such that terraform is able to use the right one when setting up your droplets. Also set the right permission to your private key (400 r--------)
 
 ### Installation
 
