@@ -26,8 +26,8 @@ This folder contains the full distributed deployment for Provotum 3.0 MN.
 8. Run the following script with sudo: `sudo ./create_custom_chain_spec.sh`
 9. Next we need to start up the p2p network and run the DL protocol.
 10. Navigate to this folder: `cd ../../ansible`
-11. Start the server (Voting Authority and Randomizer): `ansible-playbook -u root -i provotum-v3-mn-server-inventory --private-key $PATH_TO_SK provotum-v3-mn-server-start.yml`
-12. Start the sealers: `ansible-playbook -u root -i provotum-v3-mn-sealer-inventory --private-key $PATH_TO_SK provotum-v3-mn-sealer-start.yml`
+11. Start the server (Voting Authority and Randomizer): `ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i provotum-v3-mn-server-inventory --private-key $PATH_TO_SK provotum-v3-mn-server-start.yml`
+12. Start the sealers: `ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i provotum-v3-mn-sealer-inventory --private-key $PATH_TO_SK provotum-v3-mn-sealer-start.yml`
 
 Note: The sealers should automatically connect to the bootnode (Voting Authority) and start the POA-protocol. Keys (Aura, Grandpa) are generated in the installation step.
 
@@ -37,7 +37,7 @@ To destroy the server just run `terraform destroy -var "do_token=$DO_TOKEN" -var
 
 ### Change number of sealers
 
-If you with to change the number of sealers (default 2) add variable `nr_sealers` to step 3.
+If you with to change the number of sealers (default 2) add variable `nr_sealers` to step 4.
 
 ## Use the protocol
 
