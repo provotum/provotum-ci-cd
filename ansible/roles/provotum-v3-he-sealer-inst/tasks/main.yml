@@ -10,7 +10,7 @@
       SEALER_IMAGE={{sealer_image}}
       SEALER_NUMBER={{sealer_number}}
       VOTING_AUTHORITY_URL={{voting_authority_url}}
-      MONGO_DB_URL={{subdomain_server}}.{{domain}}:27017
+      MONGO_DB_URL={{domain}}:27017
       SEALER_URL={{sealer_url}}
       SUBSTRATE_HOST={{substrate_host}}
 

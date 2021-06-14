@@ -3,13 +3,9 @@ variable "pvt_key" {}
 variable "docker_registry" {}
 variable "docker_registry_username" {}
 variable "docker_registry_password" {}
-variable "subdomain_server" {
+variable "subdomain" {
   type = string
-  default = "server"
-}
-variable "subdomain_sealer" {
-  type = string
-  default = "sealer"
+  default = "v3-he"
 }
 variable "nr_sealers" {
   type = number
