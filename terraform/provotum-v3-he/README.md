@@ -47,4 +47,4 @@ The voter GUI should allow for environment variables for these urls. Then they c
 
   `sed -i 's/http:\/\/localhost:7000/https:\/\/randomizer.v3-he.provotum.io/g' public/Config.js`
 
-2.
+2. The substrate nodes do not connect properly. The bootstrapping is working in general but the connection from the sealers to the bootnode is not working properly. The reason is that the va server sends his internal ip to the sealers proposing his bootnode. This bootnode should contain the external hostname of the voting authority (as sealers and va are not on the same server). The internal/external connection can be retrieved by the SubstrateFactory by calling networkState() function. However, it does not contain the external address. It should be possible to set the external address by starting the node with the options `--rpc-external` and `--ws-external` with the right hostname. The node is started [here](https://github.com/provotum/substrate-client/blob/feature_check_chain_running/src/client/substrate-binary.ts) and does not allow to set the external options. This function should be extended to allow for external calls.
