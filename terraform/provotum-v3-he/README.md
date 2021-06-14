@@ -19,7 +19,8 @@ This folder contains the distributed deployment for Provotum 3.0 HE.
 3. Initialize terraform: `terraform init`
 4. Set up server: `terraform apply -var "do_token=$DO_TOKEN" -var "pvt_key=$PATH_TO_SK" -var "docker_registry=$DOCKER_REGISTRY" -var "docker_registry_username=$DOCKER_REGISTRY_USERNAME" -var "docker_registry_password=$DOCKER_REGISTRY_PASSWORD"`
 5. Confirm deployment with `YES`
-6. You have now installed all the components for Provotum 3.0 HE. Next, you can continue with with the setup of the voting. For that follow the Setup instructions in [provotum-infrastructure](https://github.com/provotum/provotum-infrastructure). Note: replace the localhost environment with the following (in case of default configuration):
+6. Note that after the installation, the setup might take more time as DNS entries might still be cached. It should work after 30-60 minutes.
+7. You have now installed all the components for Provotum 3.0 HE. Next, you can continue with with the setup of the voting. For that follow the Setup instructions in [provotum-infrastructure](https://github.com/provotum/provotum-infrastructure). Note: replace the localhost environment with the following (in case of default configuration):
   - vaUrl = localhost:3000 -> voting-authority.v3-he.provotum.io
   - sealerBobUrl = localhost:3001 -> sealer0.v3-he.provotum.io
   - sealerCharlieUrl = localhost:3002 -> sealer1.v3-he.provotum.io
@@ -45,3 +46,5 @@ The voter GUI should allow for environment variables for these urls. Then they c
   `sed -i 's/http:\/\/localhost:5000/https:\/\/voting-authority.v3-he.provotum.io/g' public/Config.js`
 
   `sed -i 's/http:\/\/localhost:7000/https:\/\/randomizer.v3-he.provotum.io/g' public/Config.js`
+
+2.
