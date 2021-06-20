@@ -5,14 +5,6 @@ services:
     container_name: sealer-${SEALER_NUMBER}
     image: ${NODE_IMAGE}
     command: --chain=./customSpec.json --bootnodes ${BOOTNODE} --validator --name sealer-${SEALER_NUMBER} --base-path /tmp/sealer-${SEALER_NUMBER} --port 30333 --ws-port 9944 --rpc-port 9933 --execution Native
-    ports:
-      - 9933:9933
-    labels:
-      - "traefik.docker.network=files_provotum-server"
-      - "traefik.enable=true"
-      - "traefik.chain.frontend.rule=Host:${SEALER_URL}"
-      - "traefik.chain.port=30333"
-      - "traefik.chain.protocol=http"
     volumes:
       - ./customSpec.json:/provotum/customSpec.json
 

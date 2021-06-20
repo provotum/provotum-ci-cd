@@ -6,13 +6,10 @@ services:
     image: ${NODE_IMAGE}
     command: --chain=./customSpec.json --name va --base-path /tmp/va --port 30333 --ws-port 9944 --rpc-port 9933 --ws-external --rpc-external --rpc-cors all --execution Native
     ports:
-      - 9933:9933
+      - 30333:30333
     labels:
-      - "traefik.docker.network=files_provotum-server"
+      - "traefik.docker.network=provotum-server"
       - "traefik.enable=true"
-      - "traefik.chain.frontend.rule=Host:${CHAIN_VA_URL}"
-      - "traefik.chain.port=30333"
-      - "traefik.chain.protocol=http"
       - "traefik.chainws.frontend.rule=Host:${CHAIN_VA_WS_URL}"
       - "traefik.chainws.port=9944"
       - "traefik.chainws.protocol=http"
