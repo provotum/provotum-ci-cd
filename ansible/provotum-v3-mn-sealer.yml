@@ -11,7 +11,4 @@
     - docker-compose
     - subkey
     - provotum-v3-mn-sealer-inst
-    - role: reverse-proxy
-      vars:
-        network: provotum-server
     - telegraf-inst
