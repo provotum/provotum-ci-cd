@@ -37,3 +37,8 @@
 - name: save public key
   become: true
   local_action: "shell echo {{auraPublicKey.stdout}} > ./roles/provotum-v3-mn-server-inst/files/server"
+
+- name: Create Docker network
+  become: true
+  shell:
+    cmd: "docker network create provotum-server"

@@ -13,5 +13,5 @@
     - provotum-v3-mn-server-inst
     - role: reverse-proxy
       vars:
-        network: files_provotum-server
+        network: provotum-server
     - telegraf-inst

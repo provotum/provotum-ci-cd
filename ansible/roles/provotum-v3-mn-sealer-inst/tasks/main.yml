@@ -40,3 +40,8 @@
 - name: save grandpa public key
   become: true
   local_action: "shell echo {{grandpaPublicKey.stdout}} >> ./roles/provotum-v3-mn-server-inst/files/sealer{{sealer_number}}"
+
+- name: Create Docker network
+  become: true
+  shell:
+    cmd: "docker network create provotum-server"

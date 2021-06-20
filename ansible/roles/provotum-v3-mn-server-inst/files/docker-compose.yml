@@ -18,20 +18,14 @@ services:
       - "traefik.chainws.protocol=http"
     volumes:
       - ./customSpec.json:/provotum/customSpec.json
-    networks:
-      - "provotum-server"
 
   randomizer:
     container_name: randomizer
     image: ${RANDOMIZER_IMAGE}
-    networks:
-      - "provotum-server"
 
   client:
     container_name: client
     image: ${CLIENT_IMAGE}
-    networks:
-      - "provotum-server"
     environment:
       - "VA_URL=${VA_URL}"
       - "VA_MNEMONIC=${VA_MNEMONIC}"
@@ -39,4 +33,6 @@ services:
       - "BATCH_SIZE=${BATCH_SIZE}"
 
 networks:
-  provotum-server:
+  default:
+    external: true
+    name: provotum-server
