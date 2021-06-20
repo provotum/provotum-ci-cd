@@ -5,9 +5,7 @@ services:
     container_name: sealer-${SEALER_NUMBER}
     image: ${NODE_IMAGE}
     command: --chain=./customSpec.json --bootnodes ${BOOTNODE} --validator --name sealer-${SEALER_NUMBER} --base-path /tmp/sealer-${SEALER_NUMBER} --port 30333 --ws-port 9944 --rpc-port 9933 --execution Native
-    ports:
-      - 9933:9933
-      - 30333:30333
+    network_mode: host
     volumes:
       - ./customSpec.json:/provotum/customSpec.json
 
