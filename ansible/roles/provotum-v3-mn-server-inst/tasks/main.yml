@@ -22,7 +22,7 @@
       VA_MNEMONIC="{{mnemonic.stdout}}"
       RANDOMIZER_URL=randomizer:8080
       BATCH_SIZE={{batch_size}}
-      CHAIN_VA_WS_URL=ws.va.{{domain}}
+      CHAIN_VA_WS_URL=va.{{domain}}
 
 - name: Docker Login
   become: true

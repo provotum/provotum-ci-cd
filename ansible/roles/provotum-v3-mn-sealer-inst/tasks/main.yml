@@ -19,7 +19,7 @@
       CLIENT_IMAGE={{client_image}}
       SEALER_MNEMONIC="{{mnemonic.stdout}}"
       SEALER_URL=sealer{{sealer_number}}.{{domain}}
-      VA_URL=ws.va.{{domain}}
+      VA_URL=va.{{domain}}
 
 - name: Docker Login
   become: true
