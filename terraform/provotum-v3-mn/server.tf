@@ -26,10 +26,10 @@ resource "digitalocean_droplet" "server" {
   }
 
   provisioner "local-exec" {
-    command = "echo ${self.ipv4_address} >> ../../ansible/provotum-v3-mn-server-inventory"
+    command = "echo ${var.subdomain}.${data.digitalocean_domain.default.name} ansible_host=${self.ipv4_address} >> ../../ansible/provotum-v3-mn-server-inventory"
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i '${self.ipv4_address},' --private-key ${var.pvt_key} --extra-vars 'docker_registry=${var.docker_registry} docker_registry_username=${var.docker_registry_username} docker_registry_password=${var.docker_registry_password} influxdb_url=${var.influxdb_url} influxdb_username=${var.influxdb_username} influxdb_password=${var.influxdb_password}' ../../ansible/provotum-v3-mn-server.yml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i '${self.ipv4_address},' --private-key ${var.pvt_key} --extra-vars 'docker_registry=${var.docker_registry} docker_registry_username=${var.docker_registry_username} docker_registry_password=${var.docker_registry_password} influxdb_url=${var.influxdb_url} influxdb_username=${var.influxdb_username} influxdb_password=${var.influxdb_password} domain=${var.subdomain}.${data.digitalocean_domain.default.name}' ../../ansible/provotum-v3-mn-server.yml"
   }
 }

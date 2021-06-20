@@ -1,31 +1,42 @@
 version: "3.8"
 
 services:
-  # Alice is the Voting Authority
-  # Alice doesn't validate any blocks -> just runs a full node
   va:
     container_name: va
     image: ${NODE_IMAGE}
     command: --chain=./customSpec.json --name va --base-path /tmp/va --port 30333 --ws-port 9944 --rpc-port 9933 --ws-external --rpc-external --rpc-cors all --execution Native
     ports:
-      - 30333:30333
       - 9933:9933
-      - 9944:9944
+    labels:
+      - "traefik.docker.network=files_provotum-server"
+      - "traefik.enable=true"
+      - "traefik.chain.frontend.rule=Host:${CHAIN_VA_URL}"
+      - "traefik.chain.port=30333"
+      - "traefik.chain.protocol=http"
+      - "traefik.chainws.frontend.rule=Host:${CHAIN_VA_WS_URL}"
+      - "traefik.chainws.port=9944"
+      - "traefik.chainws.protocol=http"
     volumes:
       - ./customSpec.json:/provotum/customSpec.json
+    networks:
+      - "provotum-server"
 
-  # Randomizer is a simple web service to re-encrypt the voter's ballots
   randomizer:
     container_name: randomizer
     image: ${RANDOMIZER_IMAGE}
-    ports:
-      - 8080:8080
+    networks:
+      - "provotum-server"
 
   client:
     container_name: client
     image: ${CLIENT_IMAGE}
+    networks:
+      - "provotum-server"
     environment:
       - "VA_URL=${VA_URL}"
       - "VA_MNEMONIC=${VA_MNEMONIC}"
       - "RANDOMIZER_URL=${RANDOMIZER_URL}"
       - "BATCH_SIZE=${BATCH_SIZE}"
+
+networks:
+  provotum-server:

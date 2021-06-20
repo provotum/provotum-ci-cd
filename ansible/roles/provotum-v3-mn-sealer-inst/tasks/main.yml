@@ -18,6 +18,7 @@
       NODE_IMAGE={{node_image}}
       CLIENT_IMAGE={{client_image}}
       SEALER_MNEMONIC="{{mnemonic.stdout}}"
+      SEALER_URL=sealer{{sealer_number}}.{{domain}}
 
 - name: Docker Login
   become: true

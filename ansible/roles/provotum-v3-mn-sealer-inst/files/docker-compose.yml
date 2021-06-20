@@ -1,19 +1,31 @@
 version: "3.8"
 
 services:
-  # Alice is the Voting Authority
-  # Alice doesn't validate any blocks -> just runs a full node
   sealer:
     container_name: sealer-${SEALER_NUMBER}
     image: ${NODE_IMAGE}
     command: --chain=./customSpec.json --bootnodes ${BOOTNODE} --validator --name sealer-${SEALER_NUMBER} --base-path /tmp/sealer-${SEALER_NUMBER} --port 30333 --ws-port 9944 --rpc-port 9933 --execution Native
-    network_mode: host
+    ports:
+      - 9933:9933
+    networks:
+      - "provotum-server"
+    labels:
+      - "traefik.docker.network=files_provotum-server"
+      - "traefik.enable=true"
+      - "traefik.chain.frontend.rule=Host:${SEALER_URL}"
+      - "traefik.chain.port=30333"
+      - "traefik.chain.protocol=http"
     volumes:
       - ./customSpec.json:/provotum/customSpec.json
 
   client:
     container_name: client
     image: ${CLIENT_IMAGE}
+    networks:
+      - "provotum-server"
     environment:
       - "VA_URL=${VA_URL}"
       - "SEALER_MNEMONIC=${SEALER_MNEMONIC}"
+
+networks:
+  provotum-server:

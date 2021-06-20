@@ -35,7 +35,7 @@
 
 - name: Add bootnode
   become: true
-  local_action: "shell echo \"bootnode: /ip4/{{ansible_default_ipv4.address}}/tcp/30333/p2p/{{id.stdout}}\" >> ./roles/provotum-v3-mn-sealer-start/defaults/main.yml"
+  local_action: "shell echo \"bootnode: /dns/va.{{inventory_hostname}}/tcp/443/p2p/{{id.stdout}}\" >> ./roles/provotum-v3-mn-sealer-start/defaults/main.yml"
 
 - name: Add aura key to keystore
   shell: curl http://localhost:9933 -H "Content-Type:application/json;charset=utf-8" -d "@./aura.json"
