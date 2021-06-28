@@ -80,8 +80,6 @@ services:
       - VOTING_AUTHORITY_URL=http://va:4000
       - MONGODB_URI=mongodb://mongodb:27017
       - MONGODB_NAME=sealer-1
-      - SUBSTRATE_HOST=va
-      - SUBSTRATE_WS_PORT=9944
     labels:
       - "traefik.docker.network=files_provotum-server"
       - "traefik.enable=true"
@@ -101,8 +99,6 @@ services:
       - VOTING_AUTHORITY_URL=http://va:4000
       - MONGODB_URI=mongodb://mongodb:27017
       - MONGODB_NAME=sealer-2
-      - SUBSTRATE_HOST=va
-      - SUBSTRATE_WS_PORT=9944
     labels:
       - "traefik.docker.network=files_provotum-server"
       - "traefik.enable=true"

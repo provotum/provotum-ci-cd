@@ -3,6 +3,7 @@
 ## Info
 
 This folder contains the distributed deployment for Provotum 3.0 HE.
+WARNING: This deployment does not work properly yet. See known issues for more details!
 
 ## Installation
 

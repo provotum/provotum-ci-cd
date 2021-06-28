@@ -26,3 +26,15 @@ This folder contains the centralized deployment for Provotum 3.0 HE (i.e. 2 fixe
   - sealerCharlieUrl = localhost:3002 -> sealer2.v3-he-central.provotum.io
 
 To destroy the server just run `terraform destroy -var "do_token=$DO_TOKEN" -var "pvt_key=$PATH_TO_SK" -var "docker_registry=$DOCKER_REGISTRY" -var "docker_registry_username=$DOCKER_REGISTRY_USERNAME" -var "docker_registry_password=$DOCKER_REGISTRY_PASSWORD"`
+
+
+## Default values
+
+The following urls are set as default:
+
+- identity_provider_url: `identity.v3-he-central.provotum.io`
+- randomizer_url: `randomizer.v3-he-central.provotum.io`
+- voting_authority_url: `voting-authority.v3-he-central.provotum.io`
+- frontend_url: `voter.v3-he-central.provotum.io`
+- sealer_1_url: `sealer1.v3-he-central.provotum.io`
+- sealer_2_url: `sealer2.v3-he-central.provotum.io`

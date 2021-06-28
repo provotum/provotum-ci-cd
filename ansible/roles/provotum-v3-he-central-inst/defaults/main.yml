@@ -14,7 +14,7 @@ voting_authority_image: "{{docker_registry}}/provotum/voting-authority-hofmann"
 chain_url: "chain.{{domain}}"
 chain_ws_url: "ws.chain.{{domain}}"
 
-frontend_url: "gui.{{domain}}"
+frontend_url: "voter.{{domain}}"
 frontend_image: "{{docker_registry}}/provotum/voter-hofmann-central"
 
 sealer_1_url: "sealer1.{{domain}}"

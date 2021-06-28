@@ -39,3 +39,19 @@ e.q
 - password: user1
 
 If you have changed the number of voters restart the voting process!
+
+## Default values
+
+The following urls are set as default:
+
+- voter_frontend_url: `voter.v2.provotum.io`
+- voting_authority_url: `voting-authority.v2.provotum.io`
+- access_provider_url: `access-provider.v2.provotum.io`
+- identity_provider_url: `identity-provider.v2.provotum.io`
+- sealer1_url: `sealer1.v2.provotum.io`
+- sealer1_parity_url: `parity1.v2.provotum.io`
+- sealer2_url: `sealer2.v2.provotum.io`
+- sealer2_parity_url: `parity2.v2.provotum.io`
+- sealer3_url: `sealer2.v2.provotum.io`
+- sealer3_parity_url: `parity3.v2.provotum.io`
+- ethstats_url: `ethstats.v2.provotum.io`
