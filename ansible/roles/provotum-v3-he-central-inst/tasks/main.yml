@@ -19,6 +19,7 @@
       CHAIN_WS_URL={{chain_ws_url}}
       SEALER_1_URL={{sealer_1_url}}
       SEALER_2_URL={{sealer_2_url}}
+      SEALER_IMAGE={{sealer_image}}
 
 - name: Docker Login
   become: true

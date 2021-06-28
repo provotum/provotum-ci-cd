@@ -1,7 +1,7 @@
 resource "digitalocean_droplet" "server" {
   count  = 1
   image  = "ubuntu-20-04-x64"
-  name   = "server"
+  name   = "v3-he-central"
   region = "fra1"
   size   = "s-4vcpu-8gb"
 
