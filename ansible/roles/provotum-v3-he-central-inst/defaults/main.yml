@@ -18,5 +18,5 @@ frontend_url: "gui.{{domain}}"
 frontend_image: "{{docker_registry}}/provotum/voter-hofmann-central"
 
 sealer_1_url: "sealer1.{{domain}}"
-sealer_1_url: "sealer2.{{domain}}"
+sealer_2_url: "sealer2.{{domain}}"
 sealer_image: "{{docker_registry}}/provotum/sealer-hofmann"
