@@ -1,0 +1,22 @@
+---
+
+application_name: provotum-server
+
+identity_provider_url: "identity.{{domain}}"
+identity_provider_image: "{{docker_registry}}/provotum/identity-provider-hofmann"
+
+randomizer_url: "randomizer.{{domain}}"
+randomizer_image: "{{docker_registry}}/provotum/randomizer-hofmann"
+
+voting_authority_url: "voting-authority.{{domain}}"
+voting_authority_image: "{{docker_registry}}/provotum/voting-authority-hofmann"
+
+chain_url: "chain.{{domain}}"
+chain_ws_url: "ws.chain.{{domain}}"
+
+frontend_url: "gui.{{domain}}"
+frontend_image: "{{docker_registry}}/provotum/voter-hofmann-central"
+
+sealer_1_url: "sealer1.{{domain}}"
+sealer_1_url: "sealer2.{{domain}}"
+sealer_image: "{{docker_registry}}/provotum/sealer-hofmann"

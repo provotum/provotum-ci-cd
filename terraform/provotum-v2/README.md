@@ -3,6 +3,7 @@
 ## Info
 
 This folder contains the full deployment for provotum 2.0.
+WARNING: This deployment uses the branch roger-deployment from the [Provotum 2 repository](https://github.com/provotum/provotum-v2)
 
 ## Installation
 

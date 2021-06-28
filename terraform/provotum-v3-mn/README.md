@@ -2,7 +2,7 @@
 
 ## Info
 
-This folder contains the full distributed deployment for Provotum 3.0 MN.
+This folder contains the full distributed deployment for Provotum 3.0 MN. WARNING: This deployment uses [this fork](https://github.com/sirroger5000/provotum-mixnet) which contains the Extensions described in the thesis.
 
 ## Installation
 
@@ -116,3 +116,7 @@ Display the final results of a question:
 `ansible-playbook -u root -i provotum-v3-mn-server-inventory --private-key $PATH_TO_SK provotum-v3-mn-result.yml --extra-vars "question=QUESTION"`
 
   - `QUESTION`: Your election question
+
+## Run scalability tests
+
+Change the directory to `/scripts/provotum-v3-mn/tests`. There you can find the results from the tests and the scripts to execute the whole voting protocol with 100, 1'000 and 10'000 votes. The test generates identical votes for the number of votes chosen and runs the whole voting protocol from the creation of the election until the tallying of the votes.

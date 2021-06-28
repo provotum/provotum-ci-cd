@@ -1,0 +1,15 @@
+---
+
+- name: Set up a central server for Provotum 3.0 HE
+  hosts: all
+  become: yes
+  vars:
+    - update_apt_cache: yes
+
+  roles:
+    - docker
+    - docker-compose
+    - provotum-v3-he-central-inst
+    - role: reverse-proxy
+      vars:
+        network: files_provotum-server
