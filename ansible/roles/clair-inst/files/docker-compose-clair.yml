@@ -3,6 +3,7 @@ version: "3.7"
 services:
   clair:
     container_name: clair
+    restart: always
     image: quay.io/projectquay/clair:4.0.2
     environment:
       CLAIR_CONF: "/clair/config.yml"
