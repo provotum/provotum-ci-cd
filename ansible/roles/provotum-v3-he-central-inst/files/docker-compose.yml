@@ -70,16 +70,16 @@ services:
     networks:
       - "provotum-server"
     restart: always
-  sealer-1:
+  sealer-bob:
     image: ${SEALER_IMAGE}
     environment:
-      - KEY=//Sealer1
-      - DKG_KEY=sealer1
-      - NAME=sealer-1
+      - KEY=//Bob
+      - NAME=sealer-bob
+      - DKG_KEY=bob
       - DEBUG=client,binary
       - VOTING_AUTHORITY_URL=http://va:4000
       - MONGODB_URI=mongodb://mongodb:27017
-      - MONGODB_NAME=sealer-1
+      - MONGODB_NAME=sealer-charlie
     labels:
       - "traefik.docker.network=files_provotum-server"
       - "traefik.enable=true"
@@ -89,16 +89,16 @@ services:
     restart: always
     networks:
       - "provotum-server"
-  sealer-2:
+  sealer-charlie:
     image: ${SEALER_IMAGE}
     environment:
-      - KEY=//Sealer2
-      - DKG_KEY=sealer2
-      - NAME=sealer-2
+      - KEY=//Charlie
+      - NAME=sealer-charlie
+      - DKG_KEY=charlie
       - DEBUG=client,binary
       - VOTING_AUTHORITY_URL=http://va:4000
       - MONGODB_URI=mongodb://mongodb:27017
-      - MONGODB_NAME=sealer-2
+      - MONGODB_NAME=sealer-charlie
     labels:
       - "traefik.docker.network=files_provotum-server"
       - "traefik.enable=true"

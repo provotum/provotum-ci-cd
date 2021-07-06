@@ -38,3 +38,19 @@ The following urls are set as default:
 - frontend_url: `voter.v3-he-central.provotum.io`
 - sealer_1_url: `sealer1.v3-he-central.provotum.io`
 - sealer_2_url: `sealer2.v3-he-central.provotum.io`
+
+## Known issues
+It is important to note that this deployment still continues issues. They are open for future work. The known issues are the following:
+
+1. Building of voter GUI: The voter GUI still contains hard-coded urls for the randomizer, va and ws. These urls are hard-coded in the Jenkins pipeline.
+The voter GUI should allow for environment variables for these urls. Then they can be dynamically assigned directly on the deplyoment server! This should be possible using a nodejs server which replaces the urls (see section Runtime Variables): https://adostes.medium.com/using-environment-variables-in-a-react-application-ac3b6c307373
+
+  Jenkins overwrites these urls before Docker build in a shell script:
+
+  `sed -i 's/ws:\/\/localhost:9944/wss:\/\/ws.chain.v3-he-central.provotum.io/g' src/substrate-lib/config/docker.json`
+
+  `sed -i 's/http:\/\/localhost:5000/https:\/\/voting-authority.v3-he-central.provotum.io/g' public/Config.js`
+
+  `sed -i 's/http:\/\/localhost:7000/https:\/\/randomizer.v3-he-central.provotum.io/g' public/Config.js`
+
+2. Well known sealers used: Two well known sealers bob and charlie are used in this centralized deployment. 
