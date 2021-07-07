@@ -37,7 +37,7 @@ services:
   va:
     image: ${VOTING_AUTHORITY_IMAGE}
     environment:
-      - KEY=//Voting-Authority
+      - KEY=//Alice
       - NAME=voting-authority
       - DEBUG=binary,client
       - MONGODB_URI=mongodb://mongodb:27017
@@ -79,7 +79,7 @@ services:
       - DEBUG=client,binary
       - VOTING_AUTHORITY_URL=http://va:4000
       - MONGODB_URI=mongodb://mongodb:27017
-      - MONGODB_NAME=sealer-charlie
+      - MONGODB_NAME=sealer-bob
     labels:
       - "traefik.docker.network=files_provotum-server"
       - "traefik.enable=true"
