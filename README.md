@@ -10,7 +10,7 @@ This repo contains the set up of the following components:
 - Clair (Docker Image Vulnerability Scanner for Quay)
 - Provotum 2.0
 - Provotum 3.0 HE
-- Provotum 3.0 Central (Central Deployment)
+- Provotum 3.0 HE Central (Central Deployment)
 - Provotum 3.0 Mixnet
 
 
