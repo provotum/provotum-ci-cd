@@ -119,4 +119,8 @@ Display the final results of a question:
 
 ## Run scalability tests
 
-Change the directory to `/scripts/provotum-v3-mn/tests`. There you can find the results from the tests and the scripts to execute the whole voting protocol with 100, 1'000 and 10'000 votes. The test generates identical votes for the number of votes chosen and runs the whole voting protocol from the creation of the election until the tallying of the votes.
+Change the directory to `/scripts/provotum-v3-mn/tests`. There you can find the test scripts that were used in the thesis to execute the whole voting protocol with 100, 1'000 and 10'000 votes. The test generates identical votes for the number of votes chosen and runs the whole voting protocol from the creation of the election until the tallying of the votes.
+
+## Results for the tests
+
+You can find the results for the tests used in the thesis in the folder `/results/provotum-v3-mn`
