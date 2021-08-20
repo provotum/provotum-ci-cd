@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+  mongodb:
+    image: mongo:4.2-bionic
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data
+    networks:
+      - "provotum-server"
+    restart: always
   identity:
     image: ${IDENTITY_PROVIDER_IMAGE}
     environment:
