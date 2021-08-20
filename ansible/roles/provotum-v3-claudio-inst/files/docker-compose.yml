@@ -1,0 +1,106 @@
+version: '3.8'
+
+services:
+  identity:
+    image: ${IDENTITY_PROVIDER_IMAGE}
+    environment:
+      - VOTING_AUTHORITY_URL=http://va:4000
+    labels:
+      - "traefik.docker.network=files_provotum-server"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${IDENTITY_PROVIDER_URL}"
+      - "traefik.basic.port=4000"
+      - "traefik.basic.protocol=http"
+    networks:
+      - "provotum-server"
+    restart: always
+  va:
+    image: ${VOTING_AUTHORITY_IMAGE}
+    environment:
+      - KEY=//Alice
+      - NAME=voting-authority
+      - DEBUG=binary,client
+      - MONGODB_URI=mongodb://mongodb:27017
+      - MONGODB_NAME=voting-authority
+    labels:
+      - "traefik.docker.network=files_provotum-server"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${VOTING_AUTHORITY_URL}"
+      - "traefik.basic.port=4000"
+      - "traefik.basic.protocol=http"
+      - "traefik.chain.frontend.rule=Host:${CHAIN_URL}"
+      - "traefik.chain.port=30333"
+      - "traefik.chain.protocol=http"
+      - "traefik.chainws.frontend.rule=Host:${CHAIN_WS_URL}"
+      - "traefik.chainws.port=9944"
+      - "traefik.chainws.protocol=http"
+    depends_on:
+      - mongodb
+    networks:
+      - "provotum-server"
+    restart: always
+  sealer-bob:
+    image: ${SEALER_IMAGE}
+    environment:
+      - KEY=//Bob
+      - NAME=sealer-bob
+      - DKG_KEY=bob
+      - DEBUG=client,binary
+      - VOTING_AUTHORITY_URL=http://va:4000
+      - MONGODB_URI=mongodb://mongodb:27017
+      - MONGODB_NAME=sealer-bob
+    labels:
+      - "traefik.docker.network=files_provotum-server"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${SEALER_BOB_URL}"
+      - "traefik.basic.port=4000"
+      - "traefik.basic.protocol=http"
+    restart: always
+    networks:
+      - "provotum-server"
+  sealer-charlie:
+    image: ${SEALER_IMAGE}
+    environment:
+      - KEY=//Charlie
+      - NAME=sealer-charlie
+      - DKG_KEY=charlie
+      - DEBUG=client,binary
+      - VOTING_AUTHORITY_URL=http://va:4000
+      - MONGODB_URI=mongodb://mongodb:27017
+      - MONGODB_NAME=sealer-charlie
+    labels:
+      - "traefik.docker.network=files_provotum-server"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${SEALER_CHARLIE_URL}"
+      - "traefik.basic.port=4000"
+      - "traefik.basic.protocol=http"
+    restart: always
+    networks:
+      - "provotum-server"
+  sealer-bob-frontend:
+    image: ${SEALER_BOB_FRONTEND_IMAGE}
+    labels:
+      - "traefik.docker.network=files_provotum-server"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${SEALER_BOB_FRONTEND_URL}"
+      - "traefik.basic.port=3010"
+      - "traefik.basic.protocol=http"
+  sealer-charlie-frontend:
+    image: ${SEALER_CHARLIE_FRONTEND_IMAGE}
+    labels:
+      - "traefik.docker.network=files_provotum-server"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${SEALER_CHARLIE_FRONTEND_URL}"
+      - "traefik.basic.port=3010"
+      - "traefik.basic.protocol=http"
+  va-frontend:
+    image: ${VA_FRONTEND_IMAGE}
+    labels:
+      - "traefik.docker.network=files_provotum-server"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${VA_FRONTEND_URL}"
+      - "traefik.basic.port=3011"
+      - "traefik.basic.protocol=http"
+
+volumes:
+  mongodb-data:
