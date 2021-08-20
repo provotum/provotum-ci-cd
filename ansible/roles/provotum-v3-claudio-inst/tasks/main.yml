@@ -11,6 +11,8 @@
       IDENTITY_PROVIDER_IMAGE={{identity_provider_image}}
       VOTING_AUTHORITY_URL={{voting_authority_url}}
       VOTING_AUTHORITY_IMAGE={{voting_authority_image}}
+      VA_FRONTEND_URL={{va_frontend_url}}
+      VA_FRONTEND_IMAGE={{va_frontend_image}}
       CHAIN_URL={{chain_url}}
       CHAIN_WS_URL={{chain_ws_url}}
       SEALER_BOB_FRONTEND_URL={{sealer_bob_frontend_url}}
