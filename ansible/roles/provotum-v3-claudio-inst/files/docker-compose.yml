@@ -94,6 +94,8 @@ services:
       - "traefik.basic.frontend.rule=Host:${SEALER_BOB_FRONTEND_URL}"
       - "traefik.basic.port=3010"
       - "traefik.basic.protocol=http"
+    networks:
+      - "provotum-server"
   sealer-charlie-frontend:
     image: ${SEALER_CHARLIE_FRONTEND_IMAGE}
     labels:
@@ -102,6 +104,8 @@ services:
       - "traefik.basic.frontend.rule=Host:${SEALER_CHARLIE_FRONTEND_URL}"
       - "traefik.basic.port=3010"
       - "traefik.basic.protocol=http"
+    networks:
+      - "provotum-server"
   va-frontend:
     image: ${VA_FRONTEND_IMAGE}
     labels:
@@ -110,6 +114,8 @@ services:
       - "traefik.basic.frontend.rule=Host:${VA_FRONTEND_URL}"
       - "traefik.basic.port=3011"
       - "traefik.basic.protocol=http"
+    networks:
+      - "provotum-server"
 
-volumes:
-  mongodb-data:
+networks:
+  provotum-server:
