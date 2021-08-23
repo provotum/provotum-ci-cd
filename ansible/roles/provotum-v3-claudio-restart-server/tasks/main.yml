@@ -4,8 +4,16 @@
     chdir: /var/provotum/files
     cmd: docker-compose restart
 
+- name: Pause
+  pause:
+    seconds: 15
+
 - name: Start Chain
   shell: curl -X POST https://{{voting_authority_url}}/bootstrap/chain?restart=false
+
+- name: Pause
+  pause:
+    seconds: 5
 
 - name: Get Chain Specs Bob
   shell: curl -X POST https://{{sealer_bob_url}}/bootstrap/chain-spec
