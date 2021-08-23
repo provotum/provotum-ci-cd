@@ -1,0 +1,62 @@
+- name: Stop Provotum
+  become: true
+  shell:
+    chdir: /var/provotum/files
+    cmd: docker-compose down
+
+- name: Delete database
+  file:
+    state: absent
+    path: /var/provotum/files/data
+
+- name: Start Provotum
+  become: true
+  shell:
+    chdir: /var/provotum/files
+    cmd: docker-compose up -d
+
+- name: Pause
+  pause:
+    seconds: 15
+
+- name: Send adress to va Bob
+  shell: curl -X POST https://{{sealer_bob_url}}/wallet
+
+- name: Send adress to va Charlie
+  shell: curl -X POST https://{{sealer_charlie_url}}/wallet
+
+- name: Create Chain spec
+  shell: curl -X POST https://{{voting_authority_url}}/bootstrap/chain-spec
+
+- name: Start Chain
+  shell: curl -X POST https://{{voting_authority_url}}/bootstrap/chain?restart=false
+
+- name: Pause
+  pause:
+    seconds: 5
+
+- name: Get Chain Specs Bob
+  shell: curl -X POST https://{{sealer_bob_url}}/bootstrap/chain-spec
+
+- name: Get Chain Specs Charlie
+  shell: curl -X POST https://{{sealer_charlie_url}}/bootstrap/chain-spec
+
+- name: Pause
+  pause:
+    seconds: 5
+
+- name: Start Chain Node Bob
+  shell: curl -X POST https://{{sealer_bob_url}}/bootstrap/chain/bootnode?restart=false
+
+- name: Start Chain Node Charlie
+  shell: curl -X POST https://{{sealer_charlie_url}}/bootstrap/chain/bootnode?restart=false
+
+- name: Pause
+  pause:
+    seconds: 5
+
+- name: Insert validator keys Bob
+  shell: curl -X POST https://{{sealer_bob_url}}/bootstrap/validators
+
+- name: Insert validator keys Charlie
+  shell: curl -X POST https://{{sealer_charlie_url}}/bootstrap/validators
