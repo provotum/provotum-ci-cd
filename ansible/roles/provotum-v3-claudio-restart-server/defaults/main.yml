@@ -1,0 +1,13 @@
+---
+
+application_name: provotum-server
+
+identity_provider_url: "identity.{{domain}}"
+voting_authority_url: "va.{{domain}}"
+chain_url: "chain.{{domain}}"
+chain_ws_url: "ws.chain.{{domain}}"
+va_frontend_url: "va.gui.{{domain}}"
+sealer_bob_frontend_url: "bob.gui.{{domain}}"
+sealer_charlie_frontend_url: "charlie.gui.{{domain}}"
+sealer_bob_url: "bob.{{domain}}"
+sealer_charlie_url: "charlie.{{domain}}"

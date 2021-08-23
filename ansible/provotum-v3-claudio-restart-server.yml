@@ -1,0 +1,12 @@
+---
+
+- name: Restart server Provotum v3 Claudio
+  hosts: all
+  become: yes
+  vars:
+    - update_apt_cache: yes
+
+  roles:
+    - role: provotum-v3-claudio-restart-server
+      vars:
+        domain: rf.provotum.io
