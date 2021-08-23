@@ -2,7 +2,7 @@
   become: true
   shell:
     chdir: /var/provotum/files
-    cmd: docker-compose down
+    cmd: docker-compose down --remove-orphans
 
 - name: Delete database
   file:
@@ -13,6 +13,12 @@
   become: true
   shell:
     chdir: /var/provotum/files
+    cmd: docker-compose up -d
+
+- name: Start Proxy
+  become: true
+  shell:
+    chdir: /var/proxy/files
     cmd: docker-compose up -d
 
 - name: Pause
