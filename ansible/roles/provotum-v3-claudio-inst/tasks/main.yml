@@ -22,6 +22,8 @@
       SEALER_BOB_URL={{sealer_bob_url}}
       SEALER_CHARLIE_URL={{sealer_charlie_url}}
       SEALER_IMAGE={{sealer_image}}
+      RANDOMIZER_URL={{randomizer_url}}
+      RANDOMIZER_IMAGE={{randomizer_image}}
 
 - name: Docker Login
   become: true

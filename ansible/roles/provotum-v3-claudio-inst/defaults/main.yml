@@ -2,6 +2,9 @@
 
 application_name: provotum-server
 
+randomizer_url: "randomizer.{{domain}}"
+randomizer_image: "{{docker_registry}}/provotum/randomizer-claudio"
+
 identity_provider_url: "identity.{{domain}}"
 identity_provider_image: "{{docker_registry}}/provotum/identity-provider-claudio"
 

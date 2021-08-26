@@ -116,6 +116,17 @@ services:
       - "traefik.basic.protocol=http"
     networks:
       - "provotum-server"
+  randomizer:
+    image: ${RANDOMIZER_IMAGE}
+    labels:
+      - "traefik.docker.network=files_provotum-server"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${RANDOMIZER_URL}"
+      - "traefik.basic.port=4000"
+      - "traefik.basic.protocol=http"
+    networks:
+      - "provotum-server"
+    restart: always
 
 networks:
   provotum-server:
